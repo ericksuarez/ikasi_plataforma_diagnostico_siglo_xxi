@@ -1,0 +1,45 @@
+course_all:
+  path: /index
+  defaults: { _controller: "AppBundle:Course:index" }
+  methods: GET
+
+course_create:
+  path: /create
+  defaults: { _controller: "AppBundle:Course:create" }
+  methods: POST
+
+course_view:
+  path: /view/{id}
+  defaults: { _controller: "AppBundle:Course:view", id:null }
+  methods: GET
+
+course_update:
+  path: /update/{id}
+  defaults: { _controller: "AppBundle:Course:update", id:null }
+  methods: POST
+
+course_suggestions:
+  path: /suggestions
+  defaults: { _controller: "AppBundle:Course:suggestions" }
+  methods: GET
+
+course_upload_image:
+  path: /upload-image/{id}
+  defaults: { _controller: "AppBundle:Course:upload" }
+  methods: POST
+  
+course_createBulk:
+  path: /createBulk
+  defaults: { _controller: "AppBundle:Course:createBulk" }
+  methods: POST
+  
+course_deactivated:
+  path: /deactivated/{id}
+  defaults: { _controller: "AppBundle:Course:deactivated", id:null }
+  methods: GET
+  
+course_search:
+  path: /search/{id}
+  defaults: { _controller: "AppBundle:Course:search", id:null }
+  methods: GET
+ 

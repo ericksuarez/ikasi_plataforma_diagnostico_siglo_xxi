@@ -1,0 +1,100 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Preguntas Por categoría</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Habilidades Siglo XXI</a></li>
+            <li class="active">Preguntas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <div class="col-sm-12 mb-20">
+            <a [routerLink]="'/admin/skill-century/create-question-century'" class="btn btn-primary pull-right">
+				<i class="fa fa-plus" aria-hidden="true"></i> Agregar
+			</a>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <div class="row" *ngFor="let skill of skills; let i = index">
+                <div class="row">
+                    <div class="container header-dimension">
+                        <div class="col-sm-3">
+                            <span>Habilidad</span>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span>Area</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span>Categorias</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span>Preguntas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-dimension">
+                    <div class="col-sm-3 text-center dimension-border-rigth" [ngStyle]="{'background': colors[i].skill}">
+                        <h1 class="color3">{{(i + 1)}}</h1>
+                        <a class="color3" [routerLink]="['/admin/skill-inee/parameter/create/', skill.id]" [innerHTML]="skill.name"></a>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row parameter-border-bottom" *ngFor="let area of areas[skill.id]; let ip = index;" [ngStyle]="{'background': colors[i].area}">
+                            <div class="col-sm-4 mt-10 mb-10">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <p class="color4">{{(i + 1) + '.' + (ip + 1)}}</p>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <a class="color4" [routerLink]="['/admin/skill-inee/indicator/create/', area.id]" [innerHTML]="area.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 indicator-border-left">
+                                <div class="row parameter-border-bottom" *ngFor="let category of categories; let ii = index;" [ngStyle]="{'background': colors[i].category}">
+                                    <div class="col-sm-6 mt-10 mb-10">
+                                        <div class="row">
+                                            <p class="color2">{{i+1+'.'+(ip+1)+'.'+(ii+1)}}</p>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            {{category.name}}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 indicator-border-left mt-10 mb-10" [ngStyle]="{'background': colors[i].question}">
+                                        <div class="row parameter-border-bottom" *ngFor="let question of questions[area.id+'_'+category.id]; let iii = index">
+                                            <div class="row">
+                                                <div class="col-sm-1">
+                                                    <p class="color4">{{(i + 1) + '.' + (ip + 1) + '.' + (ii + 1)+'.'+(iii+1)}}</p>
+                                                </div>
+                                                <div class="col-sm-11">
+                                                    <a class="color4" [routerLink]="['/admin/skill-century/skill-create-answer-question/',question.id]" [innerHTML]="question.name"></a>
+                                                    <a [routerLink]="['/admin/skill-century/create-answer-quetion',question.id, question.name]">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+													<button id="questionByCategoryDelete" (click)="delete([question.id])" class="btn-link" style="color: #ff9c00;"
+														title="Eliminar la pregunta">
+														<i class="fa fa-trash" aria-hidden="true"></i>
+													</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<simple-notifications [options]="options"></simple-notifications>
+</div>

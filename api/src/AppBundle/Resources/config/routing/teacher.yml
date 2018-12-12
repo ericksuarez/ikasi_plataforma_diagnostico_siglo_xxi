@@ -1,0 +1,34 @@
+teacher_all:
+  path: /all
+  defaults: { _controller: "AppBundle:Teacher:all" }
+  methods: GET
+
+teacher_profile:
+  path: /profile
+  defaults: { _controller: "AppBundle:Teacher:profile" }
+  methods: GET
+
+teacher_update_user:
+  path: /update-user
+  defaults: { _controller: "AppBundle:Teacher:updateUser" }
+  methods: POST
+
+teacher_preregister:
+  path: /list-preregister
+  defaults: { _controller: "AppBundle:Teacher:listPreregister" }
+  methods: GET
+
+teacher_import:
+  path: /import
+  defaults: { _controller: "AppBundle:Teacher:import" }
+  methods: POST
+  
+teacher_delete:
+  path: /delete/{id}/{opcion}
+  defaults: { _controller: "AppBundle:Teacher:delete", id:null, opcion:null }
+  methods: GET
+  
+teacher_allfullname:
+  path: /allfullname
+  defaults: { _controller: "AppBundle:Teacher:allfullname" }
+  methods: POST

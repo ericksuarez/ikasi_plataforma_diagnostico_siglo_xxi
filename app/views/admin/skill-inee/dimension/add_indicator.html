@@ -1,0 +1,72 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Perfiles</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/admin/dashboard']">Home</a></li>
+            <li><a [routerLink]="['/admin/skill-inee/index']">Dimensiones</a></li>
+            <li><a [routerLink]="['/admin/skill-inee/parameter/create', parameter.dimension.id]">Parámetros</a></li>
+            <li class="active">Agregar indicadores</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-80 mb-80" *ngIf="loading">
+    <div class="row">
+        <div class="loader">
+            <br><br>
+            <img src="../assets/images/loading.gif" alt="Cargando ...">
+        </div>
+    </div>
+</div>
+
+<div class="container mt-20 mb-40" [hidden]="loading">
+    <div class="row">
+        <div class="col-sm-12 no-gutter">
+            <div class="event-full">
+                <h4 class="heading">Parámetro</h4>
+                <div class="info">
+                    <div>
+                        <span>Descripción</span>
+                        <div class="no-uppercase color2 bold" [innerHTML]="parameter.name"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-20 mb-40">
+        <div class="col-sm-6">
+            <h4 class="heading">Formulario</h4>
+            <form #indicatorForm="ngForm" (ngSubmit)="onSubmit(); indicatorForm.reset();">
+                <div class="form-group">
+                    <div id="validator-dimension-ckeditor" class="custom-ckeditor-invalid"></div>
+                    <ckeditor [(ngModel)]="model.name" [config]="{entities: false}" (change)="onChange($event)" class="no-valid" debounce="500" name="name" required="required"></ckeditor>
+                    <label>Indicador</label>
+                </div>
+                <button id="parameterFormButton" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" [disabled]="!indicatorForm.form.valid">Agregar</button>
+				<button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()"><i class="fa fa-reply-all" aria-hidden="true"></i> Regresar</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="heading">Indicadores</h4>
+            <aside class="widget">
+                <div class="alert alert-warning" *ngIf="indicators.length == 0">
+                    Aún no has agregado indicadores
+                </div>
+                <ul class="archives">
+                    <li *ngFor="let indicator of indicators">
+						<span id="indicator-{{indicator.id}}">
+							<button id="bnt-delete" (click)="delete([indicator.id])" class="btn-link" style="color: #ff9c00;" title="Eliminar Indicador">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+							</button>
+							<button id="btn-edit" (click)="edit([indicator.id],[indicator.name])" class="btn-link" style="color: #ff9c00;" title="Editar Indicador">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+							</button>
+							<a id="name-{{indicator.id}}" href="javascript:void(0);" [innerHTML]="indicator.name"></a>
+						</span>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

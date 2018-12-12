@@ -1,0 +1,63 @@
+BackendBundle\Entity\TeacherAnswerCentury:
+    type: entity
+    table: teacher_answer_century
+    indexes:
+        teacher_id:
+            columns:
+                - teacher_id
+        question_century_id:
+            columns:
+                - question_century_id
+        answer_category_id:
+            columns:
+                - answer_category_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            column: update_time
+    manyToOne:
+        teacher:
+            targetEntity: Teacher
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                teacher_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        questionCentury:
+            targetEntity: QuestionCentury
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                question_century_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        answerCategory:
+            targetEntity: AnswerCategory
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                answer_category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

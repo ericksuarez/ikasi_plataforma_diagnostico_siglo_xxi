@@ -1,0 +1,134 @@
+BackendBundle\Entity\Teacher:
+    type: entity
+    table: teacher
+    indexes:
+        user_id:
+            columns:
+                - user_id
+        education_level_id:
+            columns:
+                - education_level_id
+        speciality_id:
+            columns:
+                - speciality_id
+        teacher_function_id:
+            columns:
+                - teacher_function_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        curp:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+        rfc:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+        fullname:
+            type: string
+            nullable: false
+            length: 250
+            options:
+                fixed: false
+        imageXxiFile:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: image_xxi_file
+        didFinishXxiQuestionary:
+            type: boolean
+            nullable: true
+            column: did_finish_xxi_questionary
+        evaluationIneeFinish:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+            column: evaluation_inee_finish
+        evaluationIneeImage:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: evaluation_inee_image
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+        status:
+            type: boolean
+            nullable: false
+            options:
+                    default: true
+            column: status
+        deleteTime:
+            type: datetime
+            nullable: false
+            options:
+                    default: '0000-00-00 00:00:00'
+            column: delete_time
+    manyToOne:
+        educationLevel:
+            targetEntity: EducationLevel
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                education_level_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        speciality:
+            targetEntity: Speciality
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                speciality_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        teacherFunction:
+            targetEntity: TeacherFunction
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                teacher_function_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

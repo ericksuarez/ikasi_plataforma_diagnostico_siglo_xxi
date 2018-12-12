@@ -1,0 +1,9 @@
+app_answer_question_century_list:
+    path: /list/{id}
+    defaults: { _controller: "AppBundle:AnswerQuestionCentury:list", id:null}
+    methods: GET
+
+app_answer_question_century_new:
+    path: /new/{id}
+    defaults: { _controller: "AppBundle:AnswerQuestionCentury:new", id:null}
+    methods: POST

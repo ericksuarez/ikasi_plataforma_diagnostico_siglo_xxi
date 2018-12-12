@@ -1,0 +1,24 @@
+teacher_function_list:
+  path: /list
+  defaults: { _controller: "AppBundle:TeacherFunction:list" }
+  methods: GET
+
+teacher_function_all:
+  path: /all
+  defaults: { _controller: "AppBundle:TeacherFunction:all" }
+  methods: GET
+
+teacher_function_create:
+  path: /create
+  defaults: { _controller: "AppBundle:TeacherFunction:create" }
+  methods: POST
+
+teacher_function_update:
+  path: /update/{id}
+  defaults: { _controller: "AppBundle:TeacherFunction:update", id:null }
+  methods: POST
+  
+teacher_function_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:TeacherFunction:delete", id:null }
+  methods: GET

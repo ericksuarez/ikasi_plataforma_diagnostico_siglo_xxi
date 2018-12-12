@@ -1,0 +1,69 @@
+BackendBundle\Entity\Dimension:
+    type: entity
+    table: dimension
+    indexes:
+        teacher_function_id:
+            columns:
+                - teacher_function_id
+        speciality_id:
+            columns:
+                - speciality_id
+        education_level_id:
+            columns:
+                - education_level_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        teacherFunction:
+            targetEntity: TeacherFunction
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                teacher_function_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        speciality:
+            targetEntity: Speciality
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                speciality_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        educationLevel:
+            targetEntity: EducationLevel
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                education_level_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

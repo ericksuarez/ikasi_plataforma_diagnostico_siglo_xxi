@@ -1,0 +1,49 @@
+BackendBundle\Entity\PreRegister:
+    type: entity
+    table: pre_register
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 250
+            options:
+                fixed: false
+        curp:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+        teacherFunction:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: teacher_function
+        educationLevel:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: education_level
+        speciality:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        email:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

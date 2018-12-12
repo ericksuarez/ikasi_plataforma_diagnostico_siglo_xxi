@@ -1,0 +1,57 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Perfiles</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-inee/index'">Dimensiones</a></li>
+            <li class="active">Nuevo</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="heading">
+                Datos de la <span class="color2">dimensión</span>
+            </h4>
+            <form #dimensionForm="ngForm" (ngSubmit)="onSubmit();">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select name="education_level" id="education_level" class="form-control"
+                                    [(ngModel)]="model.education_level" #education_level="ngModel" required>
+                                <option value="">Seleccionar</option>
+                                <option *ngFor="let el of education_level_list" [value]="el.id">{{el.name}}</option>
+                            </select>
+                            <label for="education_level">Nivel</label>
+                            <p [hidden]="education_level.valid || education_level.pristine" class="text-danger">
+                                El nivel es obligatorio
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select name="teacher_function" id="teacher_function" class="form-control"
+                                    [(ngModel)]="model.teacher_function" #teacher_function="ngModel" required>
+                                <option value="">Seleccionar</option>
+                                <option *ngFor="let tf of teacher_function_list" [value]="tf.id">{{tf.name}}</option>
+                            </select>
+                            <label for="teacher_function">Función</label>
+                            <p [hidden]="teacher_function.valid || teacher_function.pristine" class="text-danger">
+                                La función es obligatoria
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="validator-dimension-ckeditor" class="custom-ckeditor-invalid"></div>
+                    <ckeditor [(ngModel)]="model.name" [config]="{entities: false}" (change)="onChange($event)" class="no-valid" debounce="500" name="name" required="required"></ckeditor>
+                    <label>Descripción</label>
+                </div>
+                <button id="dimensionButton" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" [disabled]="!dimensionForm.form.valid">Guardar</button>
+            </form>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>
+

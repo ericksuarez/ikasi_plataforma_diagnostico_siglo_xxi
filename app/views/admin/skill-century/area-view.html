@@ -1,0 +1,81 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Areas</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Habilidades Siglo XXI</a></li>
+            <li class="active">Areas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container pt-100 pb-100">
+    <div class="col-sm-12">
+        <h5 class="heading text-center" id="skill_name"></h5>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 mb-20">
+            <a [routerLink]="'/admin/skill-century/skill-create-area/' + skillId" class="btn btn-primary pull-right">
+                <i class="fa fa-plus" aria-hidden="true"></i> Agregar
+            </a>
+            <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()">
+                <i class="fa fa-reply-all" aria-hidden="true"></i> Regresar
+            </button>
+        </div>
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <table class="table table-hover" [hidden]="loading">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Vulnerable</th>
+                        <th>Competente</th>
+                        <th>Optimo</th>
+                        <th>Fecha de creación</th>
+                        <th>Última actualización</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let area of areas">
+                        <td>{{ area.name }}</td>
+                        <td class="alert alert-danger">{{ area.minVulnerable }} - {{ area.maxVulnerable }}</td>
+                        <td class="alert alert-warning">{{ area.minCompetent }} - {{ area.maxCompetent }}</td>
+                        <td class="alert alert-success">{{ area.minOtimum }} - {{ area.maxOtimum }}</td>
+                        <td>{{ getformattedDate(area.createTime.timestamp) }}</td>
+                        <td>{{ getformattedDate(area.updateTime.timestamp) }}</td>
+                        <td>
+                            <a [routerLink]="['/admin/skill-century/skill-edit-area/' + skillId + '/'  +area.id]">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr *ngIf="estatus == 'error'">
+                        <td colspan="7" class="alert alert-warning">{{message}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12" [hidden]="loading" id="paginator">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a [routerLink]="['/admin/skill-century/skill-area/',skillId, pagePrev]" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let p of pages" [ngClass]="{'active': (p + 1 == page)}">
+                        <a [routerLink]="['/admin/skill-century/skill-area/',skillId, p + 1]"> {{ p + 1 }} </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/skill-century/skill-area/',skillId, pageNext]" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

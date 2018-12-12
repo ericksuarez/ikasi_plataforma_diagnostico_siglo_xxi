@@ -1,0 +1,52 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Cuestionario</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/index'">Home</a></li>
+            <li><a [routerLink]="'/evaluation-inee/index'">Evaluaciones de diagnóstico</a></li>
+            <li class="active">Cuestionario</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <h1 class="text" style="color: #ff9c00">Nivel: {{education_level_name}}</h1>
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <form #questionnaireForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="accordion-2">
+                    <div class="panel-group">
+                        <div class="panel panel-default" *ngFor="let question of questions">
+                            <div class="panel-heading" style="color: #333333 !important;">
+                                <h3 style="text-transform: inherit;" class="panel-title"
+                                    [innerHTML]="question.question"></h3>
+                            </div>
+                            <div class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="radio" *ngFor="let answer of question.answers">
+                                        <label style="text-transform: inherit;">
+                                            <input type="radio" [(ngModel)]="form.answers[question.id]"
+                                                   name="correctAnswer{{question.id}}" value="{{answer.id}}" required>
+                                            {{answer.title}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button id="questionnaireFormButton" type="submit" data-loading-text="Guardando..." name="submit"
+                                class="btn btn-success" [disabled]="!questionnaireForm.form.valid"> Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

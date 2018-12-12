@@ -1,0 +1,71 @@
+<div class="page-header">
+    <div class="container">
+        <h1>¡Bienvenido!</h1>
+    </div>
+</div>
+
+<div class="mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 mt-100">
+                <h3 class="heading no-uppercase">¡Bienvenido Maestro!</h3>
+                <p>Ante el reto y necesidad de proyectar una ruta personalizada para tu Desarrollo Profesional Docente,
+                    la Fundación para el Desarrollo Educativo, de la Investigación y Superación Profesional de los
+                    Maestros A.C. te ayuda con esta herramienta para identificar fortalezas y debilidades
+                    sugeridas en un diagnóstico, dirigido al desarrollo de tus competencias, conforme al perfil del
+                    Docente del Siglo XXI.</p>
+                <div class="clearfix"></div>
+                <br>
+                <a [routerLink]="['/check']" class="btn btn-primary btn-sm">
+                    Regístrate <i class="fa fa-long-arrow-right"></i>
+                </a>
+                <div class="row mt-40">
+                    <div class="col-sm-6">
+                        <img src="assets/images/mejores_maestros.png" alt="Mejores maestros por México">
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="assets/images/logo_sinadep_footer.png" alt="Logo sinadep" style="width: 254px; height: 71px;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 mt-60">
+                <div class="newsletter">
+                    <h4 class="newsletter-heading">¡Si ya tienes una cuenta, inicia sesión!</h4>
+                    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email"
+                                   placeholder="Correo electrónico"
+                                   [(ngModel)]="model.email" name="email"
+                                   #email="ngModel" required>
+                            <p [hidden]="email.valid || email.pristine" class="text-danger">
+                                El correo electrónico es obligatorio
+                            </p>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password"
+                                   placeholder="Contraseña"
+                                   [(ngModel)]="model.password" name="password"
+                                   #password="ngModel" required>
+                            <p [hidden]="password.valid || password.pristine" class="text-danger">
+                                La contraseña es obligatoria
+                            </p>
+                        </div>
+                        <div [hidden]="!error" class="alert alert-danger">
+                            <p>{{errorMessage}}</p>
+                        </div>
+                        <div class="form-group">
+                            <button id="submitLogin" data-loading-text="Iniciando sesión..."
+                                    [disabled]="!loginForm.form.valid" type="submit" class="btn btn-primary btn-block">
+                                Iniciar sesión
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <a [routerLink]="['/password-recovery']">¿Has olvidado tu contraseña?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

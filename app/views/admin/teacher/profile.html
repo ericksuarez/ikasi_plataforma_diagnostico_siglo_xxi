@@ -1,0 +1,68 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Profesores</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/admin/dashboard']">Home</a></li>
+            <li><a [routerLink]="['/admin/teacher/index']">Profesores</a></li>
+            <li class="active">Perfil</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-100 mb-100">
+    <div class="row" *ngIf="loading">
+        <div class="loader">
+            <br><br>
+            <img src="../assets/images/loading.gif" alt="Cargando ...">
+        </div>
+    </div>
+    <div class="row" [hidden]="loading">
+        <div class="col-sm-4">
+            <div class="teacher-intro">
+                <img src="../assets/images/teacher-single.png" class="img-responsive" alt="Picture profile">
+                <a [routerLink]="['/admin/teacher/update', teacher.id, teacher.user.id, base64Encode(teacher.user.email), teacher.user.status]" class="btn btn-primary mt-20">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar datos de inicio de sesión
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="teacher-full">
+                <h2 class="heading">{{ teacher.fullname }}</h2>
+                <div class="personal">
+                    <div>
+                        <span>CURP</span>
+                        <span>{{ teacher.curp }}</span>
+                    </div>
+                    <div>
+                        <span>Correo electrónico</span>
+                        <span>{{ teacher.user.email }}</span>
+                    </div>
+                </div>
+                <div class="personal">
+                    <div>
+                        <span>Nivel</span>
+                        <span>{{ teacher.educationLevel.name}}</span>
+                    </div>
+                    <div>
+                        <span>Especialidad</span>
+                        <span>{{ teacher.speciality.name}}</span>
+                    </div>
+                    <div>
+                        <span>Función actual</span>
+                        <span>{{ teacher.teacherFunction.name}}</span>
+                    </div>
+                </div>
+                <div class="personal">
+                    <div>
+                        <span>Estatus</span>
+                        <span>{{ getUserStatus(teacher.user.status) }}</span>
+                    </div>
+                    <div>
+                        <span>Fecha de registro</span>
+                        <span>{{ getformattedDate(teacher.createTime.timestamp) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

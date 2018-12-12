@@ -1,0 +1,107 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Habilidades Siglo XXI</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/'">Home</a></li>
+            <li><a [routerLink]="'/evaluation-xxi'">Habilidades Siglo XXI</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid bgcolor3 pt-100 pb-100">
+    <div class="row">
+        <div class="col-sm-12"  *ngIf="!showGraph">
+            <div class="loader" *ngIf="loading">
+                <img src="../../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <div class="col-sm-12" [hidden]="loading">
+                <div class="col-sm-8 col-sm-offset-2">
+
+                    <h4>Instrucciones</h4>
+                    <p>
+                        Esta encuesta obtendrá información sobre sus prácticas de enseñanza que 
+                        pueden apoyar el aprendizaje de los alumnos, en base a las siguientes habilidades 
+                        del Siglo XXI.
+                    </p>
+                    <div class="progress">
+                        <div id="barra" class="progress-bar progress-bar-striped active"
+                             role="progressbar"
+                             aria-valuenow="0"
+                             aria-valuemin="0"
+                             aria-valuemax="100" style="width: 0%; color: #ff9c00">
+                            {{percentage}}% Completo {{totalAnswered}} de {{totalQuestions}} contestadas
+                        </div>
+                    </div>
+                    <div id="habilidades">
+                        <p *ngFor="let skill of skills">
+                            <strong>{{skill.name}}</strong>
+                        <li *ngFor="let area of areas[skill.id];">
+                            <a [routerLink]="'/evaluation-xxi/evaluating/' + area.id + '/'+ area.name ">{{area.name}} {{area.questionsAnswered}}/{{area.totalQuestions}}</a>
+                        </li>
+                        </p>
+
+                    </div>
+
+                    <strong>
+                        <p>
+                            Deberá responder preguntas acerca de su estilo y procesos de enseñanza en cada 
+                            categoría.			
+                            Se incluyen preguntas acerca de lo que ya ha aplicado.
+                        </p>
+                        <p>			
+                            Las respuestas vienen indicadas en las columnas y únicamente seleccione 
+                            la respuesta que más corresponde. 			
+                        </p>
+                        <p>	
+                            No existen respuestas correctas o incorrectas. Todos los resultados son 
+                            confidenciales.			
+                        </p>
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-lg-offset-2" id="results" *ngIf="showGraph">
+            <h3>Resultados</h3>
+            <hr>
+            <button class="btn btn-primary" (click)="exportResult()">Exportar</button>
+            <div class="col-lg-12">
+                <canvas
+                    id="resultGraph"
+                    baseChart
+                    [datasets]="radarChartData"
+                    [labels]="radarChartLabels"
+                    [chartType]="radarChartType"
+                    ></canvas>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Habilidad</th>
+                            <th>Area</th>
+                            <th>Resultado</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let hability of results">
+                        <tr *ngFor="let area of hability.areas">
+                            <td class="alert alert-danger" *ngIf="area.type== 'Vulnerable'">{{hability.name}}</td>
+                            <td class="alert alert-danger" *ngIf="area.type== 'Vulnerable'">{{area.name}}</td>
+                            <td class="alert alert-danger" *ngIf="area.type== 'Vulnerable'">{{area.result}}</td>
+                            <td class="alert alert-danger" *ngIf="area.type== 'Vulnerable'">{{area.type}}</td>
+
+                            <td class="alert alert-warning" *ngIf="area.type== 'Competente'">{{hability.name}}</td>
+                            <td class="alert alert-warning" *ngIf="area.type== 'Competente'">{{area.name}}</td>
+                            <td class="alert alert-warning" *ngIf="area.type== 'Competente'">{{area.result}}</td>
+                            <td class="alert alert-warning" *ngIf="area.type== 'Competente'">{{area.type}}</td>
+
+                            <td class="alert alert-success" *ngIf="area.type== 'Óptimo'">{{hability.name}}</td>
+                            <td class="alert alert-success" *ngIf="area.type== 'Óptimo'">{{area.name}}</td>
+                            <td class="alert alert-success" *ngIf="area.type== 'Óptimo'">{{area.result}}</td>
+                            <td class="alert alert-success" *ngIf="area.type== 'Óptimo'">{{area.type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

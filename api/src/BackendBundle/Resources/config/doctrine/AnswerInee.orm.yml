@@ -1,0 +1,43 @@
+BackendBundle\Entity\AnswerInee:
+    type: entity
+    table: answer_inee
+    indexes:
+        answer_inee_ibfk_1:
+            columns:
+                - evaluation_inee_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 250
+            options:
+                fixed: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        evaluationInee:
+            targetEntity: EvaluationInee
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                evaluation_inee_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

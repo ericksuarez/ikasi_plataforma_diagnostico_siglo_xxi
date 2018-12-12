@@ -1,0 +1,28 @@
+skill_century_create:
+  path: /create
+  defaults: { _controller: "AppBundle:SkillCentury:create"}
+  methods: POST
+
+skill_century_edit:
+  path: /edit/{id}
+  defaults: { _controller: "AppBundle:SkillCentury:edit", id:null}
+  methods: POST
+
+skill_century_list:
+  path: /list
+  defaults: { _controller: "AppBundle:SkillCentury:list"}
+  methods: GET
+  
+skill_century_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:SkillCentury:delete", id:null}
+  methods: GET
+  
+skill_century_view:
+  path: /view/{id}
+  defaults: { _controller: "AppBundle:SkillCentury:view", id:null}
+  methods: GET
+deleteQuestion_delete:
+  path: /deleteQuestion/{id}
+  defaults: { _controller: "AppBundle:SkillCentury:deleteQuestion", id:null}
+  methods: GET

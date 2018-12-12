@@ -1,0 +1,138 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Perfiles</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/admin/dashboard']">Home</a></li>
+            <li><a [routerLink]="['/admin/skill-inee/index']">Perfiles</a></li>
+            <li class="active">Importar</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-100 mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3 class="heading">Importación de <span class="color2">perfiles INEE</span></h3>
+                <p class="lead">Por favor selecciona una opción</p>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" [(ngModel)]="model.typeImport" #typeImport="ngModel">
+                        Dimensiones
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="2" [(ngModel)]="model.typeImport" #typeImport="ngModel">
+                        Parámetros
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="3" [(ngModel)]="model.typeImport" #typeImport="ngModel">
+                        Indicadores
+                    </label>
+                </div>
+                <div class="row" [hidden]="!model.typeImport">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <form id="dimensionForm" #dimensionForm="ngForm">
+                            <div class="form-group">
+                                <select name="education_level" id="education_level" class="form-control"
+                                        [(ngModel)]="model.education_level" #education_level="ngModel" (change)="resetForm()"
+                                        required>
+                                    <option value="">Seleccionar</option>
+                                    <option *ngFor="let el of education_level_list" [value]="el.id">
+                                        {{el.name}}
+                                    </option>
+                                </select>
+                                <label for="education_level">Nivel</label>
+                                <p [hidden]="education_level.valid || education_level.pristine"
+                                   class="text-danger">
+                                    El nivel es obligatorio
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <select name="teacher_function" id="teacher_function" class="form-control"
+                                        [(ngModel)]="model.teacher_function"
+                                        #teacher_function="ngModel" (change)="showDimensions(teacherF.value)" #teacherF required>
+                                    <option value="">Seleccionar</option>
+                                    <option *ngFor="let tf of teacher_function_list" [value]="tf.id">
+                                        {{tf.name}}
+                                    </option>
+                                </select>
+                                <label for="teacher_function">Función</label>
+                                <p [hidden]="teacher_function.valid || teacher_function.pristine"
+                                   class="text-danger">
+                                    La función es obligatoria
+                                </p>
+                            </div>
+
+                            <div class="form-group" *ngIf="model.typeImport == 2 || model.typeImport == 3">
+                                <select name="dimension" id="dimension" class="form-control"
+                                        [(ngModel)]="model.dimension"
+                                        #dimension="ngModel" (change)="showParameters(dimensionId.value)" #dimensionId required>
+                                    <option value="">Seleccionar</option>
+                                    <option *ngFor="let dim of dimension_list" [value]="dim.id">
+                                        {{dim.name}}
+                                    </option>
+                                </select>
+                                <label for="dimension">Dimensión</label>
+                                <p [hidden]="dimension.valid || dimension.pristine"
+                                   class="text-danger">
+                                    La dimensión es obligatoria
+                                </p>
+                            </div>
+
+                            <div class="form-group" *ngIf="model.typeImport == 3">
+                                <select name="parameter" id="parameter" class="form-control"
+                                        [(ngModel)]="model.parameter"
+                                        #parameter="ngModel" required>
+                                    <option value="">Seleccionar</option>
+                                    <option *ngFor="let par of parameter_list" [value]="par.id">
+                                        {{par.name}}
+                                    </option>
+                                </select>
+                                <label for="parameter">Parámetro</label>
+                                <p [hidden]="parameter.valid || parameter.pristine"
+                                   class="text-danger">
+                                    El parámetro es obligatoria
+                                </p>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input id="image-course" class="inputfile inputfile-4"
+                                       (change)="loadFile($event)" type="file"/>
+                                <label for="image-course">
+                                    <figure>
+                                        <i class="fa fa-upload"></i>
+                                    </figure>
+                                    <span>Selecciona un archivo…</span>
+                                </label>
+                                <div class="col-sm-12 text-center" [hidden]="!ready">
+                                    <button type="button" class="btn btn-success btn-sm" (click)="upload()">
+                                        <i class="fa fa-cloud-upload"></i> Cargar datos
+                                    </button>
+                                    <div class="progress mt-20">
+                                        <div id="upload-progress-bar"
+                                             class="progress-bar progress-bar-success progress-bar-striped active"
+                                             role="progressbar"
+                                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 0%;">
+                                        </div>
+                                    </div>
+                                    <p id="status" class="text-info"></p>
+                                </div>
+                                <div class="row" *ngIf="resultUpload">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <div class="alert alert-{{resultUpload.status}}">
+                                            <p>{{resultUpload.message}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

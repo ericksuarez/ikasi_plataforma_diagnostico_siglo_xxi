@@ -1,0 +1,59 @@
+BackendBundle\Entity\Question:
+    type: entity
+    table: question
+    indexes:
+        evaluation_id:
+            columns:
+                - evaluation_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        typeQuestion:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: type_question
+        correctAnswer:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: correct_answer
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    manyToOne:
+        evaluation:
+            targetEntity: Evaluation
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                evaluation_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,60 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Cursos</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/index']">Home</a></li>
+            <li class="active">Cursos</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-60 mb-60">
+    <div class="row mt-60 mb-60" *ngIf="loading">
+        <div class="loader">
+            <br><br>
+            <img src="../assets/images/loading.gif" alt="Cargando ...">
+        </div>
+    </div>
+    <div class="row" [hidden]="courses.length > 0 || loading">
+        <div class="col-sm-12">
+            <div class="alert alert-warning">
+                No hay cursos disponibles en este momento
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngFor="let course of courses">
+         <div class="col-sm-12">
+            <div class="course-list">
+                <div class="course-media">
+                    <img src="{{ urlResource }}courses/{{ course.image }}" class="img-responsive course-img" />
+                </div>
+                <div class="course-detail">
+                    <h4 class="heading">{{ course.name }}</h4>
+                    <ul class="course-features">
+                        <li><i class="fa fa-university"></i> {{ course.educationLevel.name }}</li>
+                        <li><i class="fa fa-language"></i> {{ course.speciality.name }}</li>
+                        <li><i class="fa fa-gavel"></i> {{ course.teacherFunction.name }}</li>
+                    </ul>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Habilidad</th>
+                                <th>Area</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="alert alert-info" >{{ course.skillCentury.name }}</td>
+                                <td class="alert alert-info" >{{ course.areaCenturyIds }}</td>
+                                <td class="alert alert-info" >{{ course.state }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span class="brief" [innerHTML]="course.description"></span>
+                    <a href="{{ course.link }}" target="_blank" class="btn btn-primary btn-sm">Ver detalle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

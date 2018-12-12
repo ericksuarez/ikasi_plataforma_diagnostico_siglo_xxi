@@ -1,0 +1,162 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Cursos</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/admin/dashboard']">Home</a></li>
+            <li><a [routerLink]="['/admin/course/index']">Cursos</a></li>
+            <li class="active">{{ title }}</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="heading">
+                Datos del <span class="color2">curso</span>
+            </h4>
+            <form #courseForm="ngForm" (ngSubmit)="onSubmit();">
+                <div class="form-group">
+                    <input [(ngModel)]="model.name" id="name" type="text" class="form-control" name="name" #name="ngModel" required>
+                    <label for="name">Nombre</label>
+                    <p [hidden]="name.valid || name.pristine" class="text-danger">
+                        El nombre es obligatorio
+                    </p>
+                </div>
+                <div class="form-group">
+                    <div id="validator-dimension-ckeditor" class="custom-ckeditor-invalid"></div>
+                    <ckeditor [(ngModel)]="model.description" [config]="{entities: false}" (change)="onChange($event)" debounce="500" class="no-valid" name="description" required="required"></ckeditor>
+                    <label>Descripción</label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <select name="education_level" id="education_level" class="form-control"
+                                    [(ngModel)]="model.education_level" #education_level="ngModel" required>
+                                <option value="">Seleccionar</option>
+                                <option *ngFor="let el of education_level_list" [value]="el.id">{{el.name}}</option>
+                            </select>
+                            <label for="education_level">Nivel</label>
+                            <p [hidden]="education_level.valid || education_level.pristine" class="text-danger">
+                                El nivel es obligatorio
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <select name="teacher_function" id="teacher_function" class="form-control"
+                                    [(ngModel)]="model.teacher_function" #teacher_function="ngModel"
+                                    (change)="showDimensions(teacherF.value)" #teacherF required>
+                                <option value="">Seleccionar</option>
+                                <option *ngFor="let tf of teacher_function_list" [value]="tf.id">{{tf.name}}</option>
+                            </select>
+                            <label for="teacher_function">Función</label>
+                            <p [hidden]="teacher_function.valid || teacher_function.pristine" class="text-danger">
+                                La función es obligatoria
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <select name="specialty" id="specialty" class="form-control" [(ngModel)]="model.specialty"
+                                    #specialty="ngModel" required>
+                                <option selected="selected" value="">Seleccionar</option>
+                                <option *ngFor="let s of specialty_list" [value]="s.id">{{s.name}}</option>
+                            </select>
+                            <label for="specialty">Especialidad</label>
+                            <p [hidden]="specialty.valid || specialty.pristine" class="text-danger">
+                                La especialidad es obligatoria
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="model.link" id="link" type="url" class="form-control" name="link" #link="ngModel" required>
+                    <label for="link">Link del curso</label>
+                    <p [hidden]="link.valid || link.pristine" class="text-danger">
+                        La url del curso es obligatoria
+                    </p>
+                </div>
+                <h5>Configuración de sugerencia</h5>
+                <div class="form-group">
+                    <div class="radio">
+                        <label for="suggestion_century">
+                            <input type="radio" id="suggestion_century" name="type_suggestion" [(ngModel)]="model.type_suggestion" #type_suggestion="ngModel" value="{{ suggestion_century }}">
+                            Por habilidad del siglo XXI
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="suggestion_inee">
+                            <input type="radio" id="suggestion_inee" name="type_suggestion" [(ngModel)]="model.type_suggestion" #type_suggestion="ngModel" value="{{ suggestion_inee }}">
+                            Por evaluación diagnóstica
+                        </label>
+                    </div>
+                </div>
+                <div *ngIf="model.type_suggestion == suggestion_century">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select name="skill_century" id="skill_century" class="form-control" (change)="showAreas(skill.value)"
+                                        [(ngModel)]="model.skill_century" #skill_century="ngModel" #skill required>
+                                    <option value="">Seleccionar</option>
+                                    <option *ngFor="let skill of skills" [value]="skill.id">{{skill.name}}</option>
+                                </select>
+                                <label for="skill_century">Habilidad</label>
+                                <p [hidden]="skill_century.valid || skill_century.pristine" class="text-danger">
+                                    La habilidad es obligatoria
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <p>Selecciona una o más áreas</p>
+                                <div class="checkbox" *ngFor="let area of areas">
+                                    <label>
+                                        <input type="checkbox" [value]="area.id" id="area-{{ area.id }}" (change)="updateSelectedOptions(area, $event)" name="area_century">
+                                        {{area.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="model.type_suggestion == suggestion_inee">
+                    <p>Selecciona una dimensión</p>
+                    <div class="radio" *ngFor="let dimension of dimension_list">
+                        <label style="text-transform: inherit;">
+                            <input id="dim-{{dimension.id}}" type="radio" [(ngModel)]="model.dimension"
+                                   name="dimension" value="{{dimension.id}}" required>
+                            {{dimension.name}}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <p>Selecciona estados de recomendación del curso</p>
+                        <!--template bindings={}--><div class="checkbox">
+                            <label>
+                                <input name="eva_state" type="checkbox" value="OPTIMO" id="optimo" (change)="updStateSelectedOptions('OPTIMO', $event)">
+                                Óptimo
+                            </label>
+                        </div><div class="checkbox">
+                            <label>
+                                <input name="eva_state" type="checkbox" value="COMPETENTE" id="competente" (change)="updStateSelectedOptions('COMPETENTE', $event)">
+                                Competente
+                            </label>
+                        </div><div class="checkbox">
+                            <label>
+                                <input name="eva_state" type="checkbox" value="VULNERABLE" id="vulnerable" (change)="updStateSelectedOptions('VULNERABLE', $event)">
+                                Vulnerable
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button id="courseFormButton" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" 
+                        [disabled]="!courseForm.form.valid">Guardar
+                </button>
+                <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()">
+                    <i class="fa fa-reply-all" aria-hidden="true"></i> Regresar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

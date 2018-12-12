@@ -1,0 +1,191 @@
+<header><!-- Header = Topbar + Navigation Bar -->
+    <div class="topbar"><!-- Dark Blue Topbar -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div *ngIf="isAdmin" class="dropdown"><!-- User Dropdown -->
+                        <button class="btn btn-xs" type="button" id="admin-options" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i> Hola Administrador <i
+                                class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="admin-options">
+                            <li>
+                                <a [routerLink]="['/admin/profile']">
+                                    <i class="fa fa-cog" aria-hidden="true"></i> Mi perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/logout']">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div [hidden]="isAdmin || !isLoggedIn" class="dropdown">
+                        <button class="btn btn-xs" type="button" id="teacher-options" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i> Hola {{ profile.fullname }}
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="teacher-options">
+                            <li>
+                                <a [routerLink]="['/profile']">
+                                    <i class="fa fa-cog" aria-hidden="true"></i> Mi perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/logout']">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default"><!-- Navigation Bar -->
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#main-navigation" aria-expanded="false">
+                    <span class="sr-only">Toggle Menu</span>
+                    <span>Menu</span>
+                </button>
+                <div class="container">
+                    <div class="col-sm-6">
+                        <a class="navbar-brand" [routerLink]="['/index']"><img src="assets/images/logosinadep.png" style="width: 251px; height: 74px;"></a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="navbar-brand pull-right" [routerLink]="['/index']">
+                           <img [hidden]="isAdmin || !isLoggedIn" src="assets/images/fundacion.png" style="width: 288px; height: 84px;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="main-navigation">
+                <ul [hidden]="isAdmin" class="nav navbar-nav navbar-right">
+                    <li *ngIf="isLoggedIn" id="menu-century-xxi-evaluation">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i> Evaluaciones
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a [routerLink]="'/evaluation-xxi'">
+                                    <i class="fa fa-globe" aria-hidden="true"></i> Siglo XXI
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/evaluation-inee'">
+                                    <i class="fa fa-star" aria-hidden="true"></i> Diagnóstica
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li *ngIf="isLoggedIn" id="menu-suggested-courses">
+                        <a [routerLink]="['/suggested-course']"><i class="fa fa-book" aria-hidden="true"></i> Cursos</a>
+                    </li>
+                    <li id="menu-contact">
+                        <a [routerLink]="['/contact']"><i class="fa fa-address-book" aria-hidden="true"></i>
+                            Contacto</a>
+                    </li>
+                </ul>
+
+                <ul *ngIf="isAdmin" class="nav navbar-nav navbar-right">
+                    <li id="menu-catalog">
+                        <a href="javascript:void(0);"><i class="fa fa-cogs" aria-hidden="true"></i> Catálogos</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a [routerLink]="'/admin/speciality/index'">
+                                    <i class="fa fa-language" aria-hidden="true"></i> Especialidades
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/admin/level-education/index'">
+                                    <i class="fa fa-university" aria-hidden="true"></i> Niveles
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/admin/teacher-function/index'">
+                                    <i class="fa fa-gavel" aria-hidden="true"></i> Funciones
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="menu-course">
+                        <a [routerLink]="'/admin/course/index'"><i class="fa fa-book" aria-hidden="true"></i> Cursos</a>
+                    </li>
+                    <li id="menu-siglo-xxi">
+                        <a href="javascript:void(0);"><i class="fa fa-globe" aria-hidden="true"></i> Siglo XXI</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a [routerLink]="'/admin/skill-century/index'">
+                                    <i class="fa fa-globe" aria-hidden="true"></i> Habilidades
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/admin/skill-century/categories'">
+                                    <i class="fa fa-language" aria-hidden="true"></i> Categorias de preguntas
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/admin/skill-century/view-question-century'"><i
+                                        class="fa fa-question-circle-o" aria-hidden="true"></i> Cuestionario</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/admin/skill-century/import-question-century'">
+                                    <i class="fa fa-share" aria-hidden="true"></i> Importar
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li id="menu-inee">
+                        <a href="javascript:void(0);"><i class="fa fa-star" aria-hidden="true"></i> Evaluación diagnóstica</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a [routerLink]="'/admin/skill-inee/index'">
+                                    <i class="fa fa-male" aria-hidden="true"></i> Perfiles
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="'/admin/inee/evaluation'">
+                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i> Evaluaciones
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--<li id="menu-evaluation">-->
+                    <!--<a [routerLink]="'/admin/evaluation/index'"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Evaluaciones</a>-->
+                    <!--</li>-->
+                    <li id="menu-teacher">
+                        <a [routerLink]="'/admin/teacher/index'"><i class="fa fa-users" aria-hidden="true"></i>
+                            Profesores</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<router-outlet></router-outlet>
+
+<footer class="footer"><!-- Footer -->
+    <div class="footer-pri"><!-- Secondary Footer -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <small style="font-size: 10px;">
+                    <span class="copyright">© Copyright 2018
+                        <br> Plataforma de Diagnóstico Perfil del Docente SIGLO XXI
+                        <br> Fundación SINADEP Fundación para el Desarrollo Educativo, de la Investigación y Superación profesional de los Maestros A.C.
+                        <br> Reservados Todos los Derechos</span><!-- Copyright Text -->
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="back"><i class="fa fa-angle-up"></i></div>

@@ -1,0 +1,65 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Preguntas Por categoría</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Habilidades Siglo XXI</a></li>
+            <li class="active">Preguntas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="heading">Formulario</h4>
+            <form #questionForm="ngForm" (ngSubmit)="onSubmit(); questionForm.reset();">
+                <label>Seleccione una habilidad</label>
+                <select class="form-control" (change)="showAreas(cboSkill.value)" #cboSkill>
+                    <option value="">Seleccione una habilidad</option>
+                    <option *ngFor="let skill of skills" value="{{skill.id}}">{{skill.name}}</option>
+                </select>
+                <label>Seleccione un area</label>
+                <select (change)="setAreaId(cboArea.value)" *ngIf="areas.length > 0" class="form-control" #cboArea>
+                    <option value="">Seleccione un area</option>
+                    <option *ngFor="let area of areas" value="{{area.id}}">{{area.name}}</option>
+                </select>
+
+                <label>Seleccione una Categoria</label>
+                <select *ngIf="areas.length > 0" (change)="setCategoryId(cboCategory.value)" class="form-control" #cboCategory>
+                    <option value="">Seleccione una categoria</option>
+                    <option *ngFor="let category of categories" value="{{category.id}}">
+                        {{category.name}}
+                </option>
+            </select>
+
+            <div class="form-group col-sm-12 row">
+                <input [(ngModel)]="model.name" id="name" type="text" class="form-control" name="value" #name="ngModel" required>
+                <label for="name">Pregunta</label>
+                <p [hidden]="(name.valid || name.pristine)" class="text-danger">
+                    La pregunta es obligatoria
+            </p>
+        </div>
+
+        <div class="col-md-offset-9">&nbsp;</div>
+        <div class="col-sm-12 row">
+            <button *ngIf="!editing" id="questionFormButton" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" [disabled]="!questionForm.form.valid  || name.value <= 0">Guardar</button>
+            <button *ngIf="editing" id="questionFormButton" type="submit" data-loading-text="Modificando..." name="submit" class="btn btn-success" [disabled]="!questionForm.form.valid || name.value <= 0">Modificar</button>
+            <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()">
+                <i class="fa fa-reply-all" aria-hidden="true"></i> Regresar
+            </button>
+        </div>				
+    </form>
+</div>
+<div class="col-sm-6" *ngIf="!editing">
+    <h4 class="heading">Listado</h4>
+    <div class="alert alert-warning" [hidden]="questions.length > 0">
+        No hay nuevos elementos
+    </div>
+    <ol class="list-default">
+        <li *ngFor="let question of questions">{{ question.name }}</li>
+    </ol>
+</div>
+</div>
+<simple-notifications [options]="options"></simple-notifications>
+</div>

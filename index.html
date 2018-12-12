@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="/">
+        <title>Sinadep</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 1. Load libraries -->
+        <!-- Polyfill(s) for older browsers -->
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
+        <script>
+            System.import('app', 'moment.js').catch(function (err) {
+                console.error(err);
+            });
+        </script>
+        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script src="assets/js/ckeditor/ckeditor.js"></script>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/sinadep.css">
+        <link rel="stylesheet" href="assets/css/component.css">
+        <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+        <!--Confirmt Dialog-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+        <!--Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Oswald:300,700,400' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+		<!--Google Charts-->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+		<!--CHAR.JS https://www.chartjs.org/docs/latest/getting-started/ -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    </head>
+    <!-- 3. Display the application -->
+    <body>
+
+    <my-app>
+
+        <div class="loader-backdrop">
+            <div class="loader">
+                <div class="ball-1"></div>
+                <div class="ball-2"></div>
+            </div>
+        </div>
+    </my-app>
+</body>
+</html>
+

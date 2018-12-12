@@ -1,0 +1,16 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: dsxxi_sinadep_app_desa
+    database_user: root
+    database_password: 
+    mailer_transport: smtp
+    mailer_host: diagnosticosxxi.org
+    mailer_user: contacto@diagnosticosxxi.org
+    mailer_password: F-tr!G2+7P+=
+    mailer_port: 465
+    mailer_encryption: ssl
+    secret: 'trA#A=$U*5cR7sw35U25?eMev&Ma@8Pr'
+    serverRoot: 'https://test.diagnosticosxxi.org'
+    serverrootapi: 'http://apitest.diagnosticosxxi.org'

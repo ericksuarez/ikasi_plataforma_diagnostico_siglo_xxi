@@ -1,0 +1,33 @@
+questionnaire_inee_get:
+    path: /get-questions/{dimensionId}/{educationLevel}/{teacherFunction}
+    defaults: { _controller: "AppBundle:QuestionnaireInee:getQuestions", dimensionId:null, educationLevelId:null, teacherFunctionId:null }
+    methods: GET
+
+questionnaire_inee_dimension:
+  path: /get-dimensions
+  defaults: { _controller: "AppBundle:QuestionnaireInee:getDimensions" }
+  methods: GET
+
+questionnaire_inee_save:
+  path: /save
+  defaults: { _controller: "AppBundle:QuestionnaireInee:save" }
+  methods: POST
+
+questionnaire_inee_save_image:
+  path: /save-image
+  defaults: { _controller: "AppBundle:QuestionnaireInee:saveImage" }
+  methods: POST
+
+questionnaire_inee_export_pdf:
+  path: /export-pdf/{teacherId}
+  defaults: { _controller: "AppBundle:QuestionnaireInee:exportPdf", teacherId:null }
+  methods: GET
+
+questionnaire_inee_export_excel:
+  path: /export-excel/{teacherId}
+  defaults: { _controller: "AppBundle:QuestionnaireInee:exportExcel", teacherId:null }
+  methods: GET
+questionnaire_inee_reset_evaluation_inee:
+  path: /reset-evaluation-inee/{teacherId}
+  defaults: { _controller: "AppBundle:QuestionnaireInee:resetEvaluationInee", teacherId:null }
+  methods: GET

@@ -1,0 +1,97 @@
+BackendBundle\Entity\Evaluation:
+    type: entity
+    table: evaluation
+    indexes:
+        teacher_function_id:
+            columns:
+                - teacher_function_id
+        speciality_id:
+            columns:
+                - speciality_id
+        education_level_id:
+            columns:
+                - education_level_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        numberQuestions:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: number_questions
+        minimumRating:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: minimum_rating
+        timeResolve:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: time_resolve
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    manyToOne:
+        teacherFunction:
+            targetEntity: TeacherFunction
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                teacher_function_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        speciality:
+            targetEntity: Speciality
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                speciality_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        educationLevel:
+            targetEntity: EducationLevel
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                education_level_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

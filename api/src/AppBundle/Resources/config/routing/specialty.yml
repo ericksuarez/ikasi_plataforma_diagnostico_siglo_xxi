@@ -1,0 +1,24 @@
+specialty_list:
+  path: /list
+  defaults: { _controller: "AppBundle:Specialty:list" }
+  methods: GET
+
+specialty_all:
+  path: /all
+  defaults: { _controller: "AppBundle:Specialty:all" }
+  methods: GET
+
+specialty_create:
+  path: /create
+  defaults: { _controller: "AppBundle:Specialty:create" }
+  methods: POST
+
+specialty_update:
+  path: /update/{id}
+  defaults: { _controller: "AppBundle:Specialty:update", id:null }
+  methods: POST
+ 
+specialty_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:Specialty:delete", id:null }
+  methods: GET

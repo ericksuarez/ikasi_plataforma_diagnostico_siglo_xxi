@@ -1,0 +1,84 @@
+BackendBundle\Entity\AreaCentury:
+    type: entity
+    table: area_century
+    indexes:
+        skill_century_id:
+            columns:
+                - skill_century_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        minVulnerable:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: min_vulnerable
+        maxVulnerable:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: max_vulnerable
+        minCompetent:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: min_competent
+        maxCompetent:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: max_competent
+        minOtimum:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: min_otimum
+        maxOtimum:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: max_otimum
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        skillCentury:
+            targetEntity: SkillCentury
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                skill_century_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

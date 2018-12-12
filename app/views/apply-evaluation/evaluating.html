@@ -1,0 +1,66 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Habilidades Siglo XXI</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/'">Home</a></li>
+            <li><a [routerLink]="'/evaluation-xxi'">Habilidades Siglo XXI</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+<div class="container pt-40 pb-40">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="flotante saveButton btn btn-primary pull-right" (click)="saveAnswers()">Guardar</button>
+
+            <div class="loader" *ngIf="loading">
+                <img src="../../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <div *ngIf="!loading">
+                <div class="table-responsive">
+                    <h2 style="color: #ff9c00">{{skill_century}}</h2>
+                    <h3>{{area}}</h3>
+                    <table class="table table-hover " *ngFor="let category of categories.categories">
+                           <thead>
+                            <tr>
+                                <th [attr.colspan]="category.answersOfCategory.length + 1">
+                                    {{category.name}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 12px">
+                            <tr>
+                                <th>Pregunta/Respuesta</th>
+                                <td class="text-center" *ngFor="let answer of category.answersOfCategory">
+                                    {{answer.name}}
+                            </td>
+                        </tr>
+                        <tr *ngFor="let question of category.questions">
+                            <td class="label-evaluation">
+                                {{question.name}}
+                            </td>
+                            <td *ngFor="let answer of category.answersOfCategory; let iii = index">
+                                <div class="text-center" *ngIf="question.answers.length == 0">
+                                    <input [attr.disabled]="question.answerId > 0 ? 'disabled':null"
+                                    [attr.checked]="question.answerId == answer.id ? 'checked':null"
+                                    (click)="addValue(question.id, answer.id)" type="radio"
+                                    name="question_{{question.id}}" value="{{answer.id}}">
+                                </div>
+                                <div class="radio" *ngIf="question.answers.length > 0">
+                                    <label class="no-uppercase">
+                                        <input [attr.disabled]="question.answerId > 0 ? 'disabled':null"
+                                        [attr.checked]="question.answerId == answer.id ? 'checked':null"
+                                        (click)="addValue(question.id, answer.id)" type="radio"
+                                        name="question_{{question.id}}" value="{{answer.id}}">
+                                        {{question.answers[iii].name}}
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

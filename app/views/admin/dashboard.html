@@ -1,0 +1,258 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Administración</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li class="active">{{ title }}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="heading"> >>> <span class="color2">Dashboard</span></h3>
+                <ul class="nav nav-pills nav-stacked pull-left" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#p1body1" aria-controls="p1body1" role="tab" data-toggle="tab"><i
+                                class="fa fa-lock fa-files-o"></i> Reportes</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#p1body2" aria-controls="p1body2" role="tab" data-toggle="tab"><i
+                                class="fa fa-envelope fa-text-height"></i> Texto Home</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#p1body3" aria-controls="p1body3" role="tab" data-toggle="tab"><i
+                                class="fa fa-user fa-image"></i> Logos</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- Tab One -->
+                    <div role="tabpanel" class="tab-pane fade in active" id="p1body1">
+                        <div class="row">
+							<div class="col-sm-8">
+                                <table class="table table-hover">
+								  <thead>
+									<tr>
+									  <th>NIVEL ESCOLAR</th>
+									  <th>SIGLO XXI</th>
+									  <th>DIAGNÓSTICO</th>
+									  <th>INSCRITOS</th>
+									</tr>
+								  </thead>
+								  <tbody>
+									<tr *ngFor="let nivel_edu of niveles_educativos">
+									  <th scope="col" style="color: red">{{ nivel_edu.NIVEL }}</th>
+									  <th scope="row">{{ nivel_edu.SIGLOXXI }}</th>
+									  <th>{{ nivel_edu.DIAGNOSTICA }}</th>
+									  <th>{{ nivel_edu.INSCRITOS }}</th>
+									</tr>
+								  </tbody>
+								  <tfoot>
+									<tr>
+										<th></th>
+										<th></th>
+										<th>TOTAL INSCRITOS</th>
+										<th>{{ model.total }}</th>
+									</tr>
+								  </tfoot>
+								</table>
+									
+								<h3 class="heading"><span class="color2">MAESTRO SIGLO XXI</span></h3>
+								<div class="col-sm-12">
+									<div id="siglo_xxi_1" class="col-sm-6" style="width: 100%; height: 350px;"></div>
+									<div id="siglo_xxi_2" class="col-sm-6" style="width: 100%; height: 350px;"></div>
+								</div>
+			
+								<h3 class="heading"><span class="color2">EVALUACIÓN DIAGNÓSTICA</span></h3>
+								<div class="col-sm-12">
+									<div id="eva_diagnostica_1" class="col-sm-6" style="width: 100%; height: 350px;"></div>
+									<div id="eva_diagnostica_2" class="col-sm-6" style="width: 100%; height: 350px;"></div>
+								</div>
+								
+								<h3 class="heading"><span class="color2">ESTATUS PROMEDIO EN LOS NIVELES EDUCATIVOS</span></h3>
+								<canvas id="myChart" width="600" height="400"></canvas>
+							</div>
+                        </div>
+                    </div>
+                    <!-- Tab Two -->
+                    <div role="tabpanel" class="tab-pane fade" id="p1body2">
+                        <div class="row">
+                            <form id="submitHome" (ngSubmit)="submitHomeText()">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="text_left">Texto de la columna izquierda</label>
+                                        <textarea class="form-control" id="text_left" name="text_left" rows="30">{{model.text_left}}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text_right">Texto de la columna derecha</label>
+                                        <textarea class="form-control" id="text_right" name="text_right" rows="30">{{model.text_right}}</textarea>
+                                    </div>
+                                    <button id="textosHome" data-loading-text="Guardando..." type="submit" name="submit"
+                                            class="btn btn-primary"> Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Tab Three -->
+                    <div role="tabpanel" class="tab-pane fade" id="p1body3">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <label>Img. del Banner</label>
+                                                <img [src]="model.page_header" class="rounded" alt="Img. del Banner" style="width: 100%" id="page_header">
+                                            </div>    
+                                            <div class="col-sm-6 text-center">
+                                                <input id="image-course" class="inputfile inputfile-4" (change)="loadFilePageHeader($event)" type="file"/>
+                                                <label for="image-course">
+                                                    <figure>
+                                                        <i class="fa fa-upload"></i>
+                                                    </figure>
+                                                    <span>Selecciona una imagen…</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12 text-center" [hidden]="!readyPageHeader">
+                                                <button type="button" class="btn btn-success btn-sm" (click)="uploadPageHeader()">
+                                                    <i class="fa fa-cloud-upload"></i> Cargar
+                                                </button>
+                                                <div class="progress mt-10">
+                                                    <div id="page_header-progress-bar"
+                                                         class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                    </div>
+                                                </div>
+                                                <p id="status-page_header" class="text-info"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <label>Img. de la fundación</label>
+                                                <img [src]="model.fundacion" class="rounded" alt="Img. del Banner" style="width: 100%" id="fundacion" style="background-color: black">
+                                            </div>    
+                                            <div class="col-sm-6 text-center">
+                                                <input id="image-fundacion" class="inputfile inputfile-4" (change)="loadFileFundacion($event)" type="file"/>
+                                                <label for="image-fundacion">
+                                                    <figure>
+                                                        <i class="fa fa-upload"></i>
+                                                    </figure>
+                                                    <span>Selecciona una imagen…</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12 text-center" [hidden]="!readyFundacion">
+                                                <button type="button" class="btn btn-success btn-sm" (click)="uploadFundacion()">
+                                                    <i class="fa fa-cloud-upload"></i> Cargar
+                                                </button>
+                                                <div class="progress mt-10">
+                                                    <div id="fundacion-progress-bar"
+                                                         class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                    </div>
+                                                </div>
+                                                <p id="status-fundacion" class="text-info"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <label>Img. Logo SINADEP 1</label>
+                                                <img [src]="model.logo_sinadep_footer" class="rounded" alt="Img. del Banner" style="width: 100%" id="logo_sinadep_footer">
+                                            </div>    
+                                            <div class="col-sm-6 text-center">
+                                                <input id="image-logo_sinadep_footer" class="inputfile inputfile-4" (change)="loadFileLogoSinadepFooter($event)" type="file"/>
+                                                <label for="image-logo_sinadep_footer">
+                                                    <figure>
+                                                        <i class="fa fa-upload"></i>
+                                                    </figure>
+                                                    <span>Selecciona una imagen…</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12 text-center" [hidden]="!readyLogoSinadepFooter">
+                                                <button type="button" class="btn btn-success btn-sm" (click)="uploadLogoSinadepFooter()">
+                                                    <i class="fa fa-cloud-upload"></i> Cargar
+                                                </button>
+                                                <div class="progress mt-10">
+                                                    <div id="logo_sinadep_footer-progress-bar"
+                                                         class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                    </div>
+                                                </div>
+                                                <p id="status-logo_sinadep_footer" class="text-info"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <label>Img. Logo SINADEP 2</label>
+                                                <img [src]="model.logo_sinadep" class="rounded" alt="Img. del Banner" style="width: 100%" id="logo_sinadep">
+                                            </div>    
+                                            <div class="col-sm-6 text-center">
+                                                <input id="image-logo_sinadep" class="inputfile inputfile-4" (change)="loadFileLogoSinadep($event)" type="file"/>
+                                                <label for="image-logo_sinadep">
+                                                    <figure>
+                                                        <i class="fa fa-upload"></i>
+                                                    </figure>
+                                                    <span>Selecciona una imagen…</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12 text-center" [hidden]="!readyLogoSinadep">
+                                                <button type="button" class="btn btn-success btn-sm" (click)="uploadLogoSinadep()">
+                                                    <i class="fa fa-cloud-upload"></i> Cargar
+                                                </button>
+                                                <div class="progress mt-10">
+                                                    <div id="logo_sinadep-progress-bar"
+                                                         class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                    </div>
+                                                </div>
+                                                <p id="status-logo_sinadep" class="text-info"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <label>Img. Mejores Maestros</label>
+                                                <img [src]="model.mejores_maestros" class="rounded" alt="Img. del Banner" style="width: 100%" id="mejores_maestros">
+                                            </div>    
+                                            <div class="col-sm-6 text-center">
+                                                <input id="image-mejores_maestros" class="inputfile inputfile-4" (change)="loadFileMejoresMaestros($event)" type="file"/>
+                                                <label for="image-mejores_maestros">
+                                                    <figure>
+                                                        <i class="fa fa-upload"></i>
+                                                    </figure>
+                                                    <span>Selecciona una imagen…</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12 text-center" [hidden]="!readyMejoresMaestros">
+                                                <button type="button" class="btn btn-success btn-sm" (click)="uploadMejoresMaestros()">
+                                                    <i class="fa fa-cloud-upload"></i> Cargar
+                                                </button>
+                                                <div class="progress mt-10">
+                                                    <div id="mejores_maestros-progress-bar"
+                                                         class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                    </div>
+                                                </div>
+                                                <p id="status-mejores_maestros" class="text-info"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

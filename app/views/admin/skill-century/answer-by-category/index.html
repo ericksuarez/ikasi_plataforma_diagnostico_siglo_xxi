@@ -1,0 +1,79 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Respuestas de la categoria</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Habilidades Siglo XXI</a></li>
+            <li><a [routerLink]="'/admin/skill-century/categories'">Categorias</a></li>
+            <li class="active">Respuestas de la categoria</li>
+        </ul>
+    </div>
+</div>
+<div class="container pt-100 pb-100">
+    <div class="row">
+        <div class="col-sm-12 mb-20">
+            <a [routerLink]="'/admin/skill-century/skill-create-answer-category/' + categoryId" class="btn btn-primary pull-right">
+                <i class="fa fa-plus" aria-hidden="true"></i> Agregar
+            </a>
+            <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()">
+                <i class="fa fa-reply-all" aria-hidden="true"></i> Regresar
+            </button>
+        </div>
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+
+            <table class="table table-hover" [hidden]="loading">
+                <thead>
+                    <tr>
+                        <th>Respuesta</th>
+                        <th>Valor</th>
+                        <th>Fecha de creaci&oacute;n</th>
+                        <th>&Uacute;ltima actualizaci&oacute;n</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let answer of answers">
+                        <td>{{ answer.name }}</td>
+                        <td>{{ answer.value }}</td>
+                        <td>{{ getformattedDate(answer.createTime.timestamp) }}</td>
+                        <td>{{ getformattedDate(answer.updateTime.timestamp) }}</td>
+                        <td>
+                            <a [routerLink]="['/admin/skill-century/edit-answer-category/' + categoryId + '/'  + answer.id]">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+							<button id="anwserByCategoryDelete" (click)="delete([answer.id])" class="btn-link" style="color: #ff9c00;"
+								title="Eliminar">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+							</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="estatus == 'error'">
+                        <td colspan="5" class="alert alert-warning">{{message}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12" [hidden]="loading" id="paginator">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a [routerLink]="['/admin/skill-century/view-questions-by-category/',categoryId, pagePrev]" aria-label="Previous">
+                            <span aria-hidden="true">&#171;</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let p of pages" [ngClass]="{'active': (p + 1 == page)}">
+                        <a [routerLink]="['/admin/skill-century/view-questions-by-category/',categoryId, p + 1]"> {{ p + 1 }} </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/skill-century/view-questions-by-category/',categoryId, pageNext]" aria-label="Next">
+                            <span aria-hidden="true">&#187;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+# Don't track content of these folders
+node_modules/
+test/
+testmail/
+typings/
+
+# Compiled source #
+###################
+*.js.map
+*.ts

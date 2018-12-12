@@ -1,0 +1,53 @@
+BackendBundle\Entity\Answer:
+    type: entity
+    table: answer
+    indexes:
+        question_id:
+            columns:
+                - question_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        correctAnswer:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: correct_answer
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    manyToOne:
+        question:
+            targetEntity: Question
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                question_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

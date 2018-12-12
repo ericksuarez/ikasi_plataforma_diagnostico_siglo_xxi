@@ -1,0 +1,71 @@
+app_default:
+  resource: "@AppBundle/Resources/config/routing/default.yml"
+  prefix: /
+
+app_user:
+  resource: "@AppBundle/Resources/config/routing/user.yml"
+  prefix: /user
+
+app_specialty:
+  resource: "@AppBundle/Resources/config/routing/specialty.yml"
+  prefix: /specialty
+
+app_teacher_function:
+  resource: "@AppBundle/Resources/config/routing/teacher_function.yml"
+  prefix: /teacher-function
+
+app_education_level:
+  resource: "@AppBundle/Resources/config/routing/education_level.yml"
+  prefix: /education-level
+
+app_contact:
+  resource: "@AppBundle/Resources/config/routing/contact.yml"
+  prefix: /contact
+
+app_teacher:
+  resource: "@AppBundle/Resources/config/routing/teacher.yml"
+  prefix: /teacher
+
+app_course:
+  resource: "@AppBundle/Resources/config/routing/course.yml"
+  prefix: /course
+
+app_skill_century:
+    resource: "@AppBundle/Resources/config/routing/skill_century.yml"
+    prefix: /skill-century
+    
+app_area_century:
+    resource: "@AppBundle/Resources/config/routing/area_century.yml"
+    prefix: /area-century
+    
+app_category:
+    resource: "@AppBundle/Resources/config/routing/category.yml"
+    prefix: /category
+    
+app_answer_category:
+    resource: "@AppBundle/Resources/config/routing/answer_category.yml"
+    prefix: /answer-category
+    
+app_inee:
+  resource: "@AppBundle/Resources/config/routing/inee.yml"
+  prefix: /inee
+  
+app_questionary_century:
+  resource: "@AppBundle/Resources/config/routing/questionary_century.yml"
+  prefix: /questionary-century
+  
+app_teacher_answer_century:
+    resource: "@AppBundle/Resources/config/routing/teacher_answer_century.yml"
+    prefix: /answer-teacher-century
+
+app_answer_question_century:
+    resource: "@AppBundle/Resources/config/routing/answer_question_century.yml"
+    prefix: /answer-question-century
+
+app_evaluation_inee:
+    resource: "@AppBundle/Resources/config/routing/evaluation_inee.yml"
+    prefix: /evaluation-inee
+
+app_questionnaire_inee:
+    resource: "@AppBundle/Resources/config/routing/questionnaire_inee.yml"
+    prefix: /questionnaire-inee

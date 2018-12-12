@@ -1,0 +1,54 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Contacto</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/index'">Home</a></li>
+            <li class="active">Contacto</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h4 class="heading">¡Felices de <span class="color2">ayudarte!</span></h4>
+            <form id="contactForm" #contactForm="ngForm" (ngSubmit)="onSubmit();">
+                <div class="form-group">
+                    <input id="name" type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required autocomplete="off">
+                    <label for="name">Nombre completo</label>
+                    <p [hidden]="name.valid || name.pristine" class="text-danger">
+                        El nombre es obligatorio
+                    </p>
+                </div>
+                <div class="form-group">
+                    <input id="email" type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required autocomplete="off">
+                    <label for="email">Correo electrónico</label>
+                    <p [hidden]="email.valid || email.pristine" class="text-danger">
+                        El correo electrónico es obligatorio
+                    </p>
+                </div>
+                <div class="form-group">
+                    <input id="number" type="text" class="form-control" name="subject" [(ngModel)]="model.subject" #subject="ngModel" required autocomplete="off">
+                    <label for="number">Asunto</label>
+                    <p [hidden]="subject.valid || subject.pristine" class="text-danger">
+                        El asunto es obligatorio
+                    </p>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" class="form-control" rows="6" name="message" [(ngModel)]="model.message" #message="ngModel" required></textarea>
+                    <label for="message">Tu mensaje</label>
+                    <p [hidden]="message.valid || message.pristine" class="text-danger">
+                        El mensaje es obligatorio
+                    </p>
+                </div>
+                <div class="alert alert-success" *ngIf="responseStatus && responseMessage.length > 0">
+                    <p class="lead"><i class="fa fa-check-square-o" aria-hidden="true"></i> {{ responseMessage }}</p>
+                </div>
+                <div class="alert alert-danger" *ngIf="!responseStatus && responseMessage.length > 0">
+                    <p class="lead"><i class="fa fa-times-circle" aria-hidden="true"></i> {{ responseMessage }}</p>
+                </div>
+                <button id="contactButton" data-loading-text="Enviando mensaje..." type="submit" name="submit" class="btn btn-primary btn-lg" [disabled]="!contactForm.form.valid">Enviar mensaje</button>
+            </form>
+        </div>
+    </div>
+</div>

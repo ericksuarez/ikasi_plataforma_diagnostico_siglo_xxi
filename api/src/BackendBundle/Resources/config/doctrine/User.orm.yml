@@ -1,0 +1,87 @@
+BackendBundle\Entity\User:
+    type: entity
+    table: user
+    indexes:
+        user_role_id:
+            columns:
+                - user_role_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        email:
+            type: string
+            nullable: false
+            length: 128
+            options:
+                fixed: false
+        passwordHash:
+            type: string
+            nullable: false
+            length: 128
+            options:
+                fixed: false
+            column: password_hash
+        passwordResetToken:
+            type: string
+            nullable: true
+            length: 48
+            options:
+                fixed: false
+            column: password_reset_token
+        authKey:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: auth_key
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '2'
+        lastVisitTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: last_visit_time
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+        section_name:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: section_name
+    manyToOne:
+        userRole:
+            targetEntity: UserRole
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_role_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

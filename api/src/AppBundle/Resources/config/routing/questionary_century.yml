@@ -1,0 +1,19 @@
+questionary_century_new:
+  path: /new
+  defaults: { _controller: "AppBundle:QuestionCentury:new" }
+  methods: POST
+
+questionary_century_list:
+  path: /list/{areaId}/{categoryId}
+  defaults: { _controller: "AppBundle:QuestionCentury:list", categoryId:null, areaId:null}
+  methods: GET
+  
+questionary_century_list_by_area:
+  path: /list-by-area/{areaId}/{userId}
+  defaults: { _controller: "AppBundle:QuestionCentury:getQuestionByArea", areaId:null, userId:null}
+  methods: GET
+
+questionary_century_import_csv:
+  path: /import-csv/{areaId}/{categoryId}/{replace}
+  defaults: { _controller: "AppBundle:QuestionCentury:importQuestionary", areaId:null, categoryId:null, replace:null}
+  methods: POST

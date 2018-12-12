@@ -1,0 +1,72 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Habilidades Siglo XXI</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Habilidades Siglo XXI</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container pt-100 pb-100">
+    <div class="row">
+        <div class="col-sm-12 mb-20">
+            <a [routerLink]="'/admin/skill-century/create'" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
+        </div>
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+
+            <table class="table table-hover" [hidden]="loading" *ngIf="skills">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha de creación</th>
+                        <th>Última actualización</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let skill of skills">
+                        <td>{{ skill.name }}</td>
+                        <td>{{ getformattedDate(skill.createTime.timestamp) }}</td>
+                        <td>{{ getformattedDate(skill.updateTime.timestamp) }}</td>
+                        <td>
+                            <a [routerLink]="['/admin/skill-century/edit/' + skill.id, skill.name]">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a [routerLink]="['/admin/skill-century/skill-area/' + skill.id ]">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                            <button id="skillButtonDelete" (click)="delete([skill.id])" class="btn-link" style="color: #ff9c00;">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12" [hidden]="loading">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a [routerLink]="['/admin/skill-century/index', pagePrev]" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let p of pages" [ngClass]="{'active': (p + 1 == page)}">
+                        <a [routerLink]="['/admin/skill-century/index', p + 1]"> {{ p + 1 }} </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/skill-century/index', pageNext]" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

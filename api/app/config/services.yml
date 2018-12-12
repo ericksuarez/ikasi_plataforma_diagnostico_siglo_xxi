@@ -1,0 +1,41 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    app.encrypt:
+        class: AppBundle\Services\Encrypt
+        arguments: []
+
+    app.access_control:
+        class: AppBundle\Services\AccessControl
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    app.jwt_auth:
+        class: AppBundle\Services\JwtAuth
+        arguments: ["@doctrine.orm.entity_manager", "@app.encrypt", "@app.access_control"]
+
+    app.helpers:
+        class: AppBundle\Services\Helpers
+        arguments: ["@app.jwt_auth"]
+
+    app.email:
+        class: AppBundle\Services\Email
+        arguments: ["@templating", "@mailer"]
+
+    app.suggestions:
+        class: AppBundle\Services\SuggestedCourses
+        arguments: ["@doctrine.orm.entity_manager", "@app.inee_results"]
+
+    app.import_teacher:
+        class: AppBundle\Services\ImportTeacher
+        arguments: ["@doctrine.orm.entity_manager", "@validator"]
+
+    app.import_inee:
+        class: AppBundle\Services\ImportInee
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    app.inee_results:
+        class: AppBundle\Services\IneeResults
+        arguments: ["@doctrine.orm.entity_manager"]

@@ -1,0 +1,75 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Evaluación diagnóstica</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/'">Home</a></li>
+            <li><a [routerLink]="'/evaluation-inee'">Evaluación diagnóstica</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <div class="col-sm 12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+        </div>
+    </div>
+    <div class="row" [hidden]="loading || showGraphic">
+        <div class="col-sm-12">
+            <h4>Instrucciones</h4>
+            <p>
+                A continuación se muestra un listado de las dimensiones a evaluar:
+            </p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Dimensión</th>
+                    <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dimension of dimensions; let i = index">
+                    <td>{{i+1}}.- {{dimension.dimension}}</td>
+                    <td>
+                        <a class="btn btn-xs btn-primary"
+                           [routerLink]="['/evaluation-inee/questionnaire', dimension.id, dimension.educationLevel, dimension.teacherFunction]">
+                            Iniciar
+                            <i class="fa fa-play"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="showGraphic">
+        <div class="col-sm-8 col-sm-offset-2">
+            <button class="btn-link" style="color: #ff9c00" (click)="resetEvaluationInee()">Reiniciar Evaluación Diagnóstica</button>
+            <hr>
+            <canvas id="graphInee"
+                    baseChart
+                    [datasets]="radarChartData"
+                    [labels]="radarChartLabels"
+                    [chartType]="radarChartType">
+            </canvas>
+			<hr>
+			<em>Donde:</em>
+			<table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><em>Dimensión</em></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dimension of tagDimensions; let i = index">
+                    <td><em>{{dimension}}</em></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

@@ -1,0 +1,50 @@
+<div class="page-header">
+    <div class="container">
+        <h1>{{ title_breadcrumb }}</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/index'">Home</a></li>
+            <li class="active">{{ title_breadcrumb }}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="bgcolor3 pt-100 pb-100" *ngIf="error == false">
+    <div class="container">
+        <h2 class="heading text-center">Tu cuenta ha sido <span class="color2">activada</span></h2>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="icon-box-5">
+                    <div class="icon-box-icon">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="icon-box-content">
+                        <h5 class="heading">¡Felicidades!</h5>
+                        <span>Ahora ya puedes iniciar sesión en la plataforma</span>
+                        <br><br>
+                        <a [routerLink]="['/index']" class="btn btn-primary btn-sm">Iniciar sesión <i
+                                class="fa fa-sign-in"></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bgcolor3 pt-100 pb-100" *ngIf="error == true">
+    <div class="container">
+        <h2 class="heading text-center">Tu cuenta no ha sido <span class="color2">activada</span></h2>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="icon-box-5">
+                    <div class="icon-box-icon">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="icon-box-content">
+                        <h5 class="heading">¡Error!</h5>
+                        <span>Tu cuenta no se ha podido activar, por favor comunicate con el administrador del sistema</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

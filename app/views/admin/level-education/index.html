@@ -1,0 +1,68 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Niveles educativos</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/level-education/index'">Niveles educativos</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <div class="col-sm-12 mb-20">
+            <a [routerLink]="'/admin/level-education/create'" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
+        </div>
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <table class="table table-hover" [hidden]="loading">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de creación</th>
+                    <th>Última actualización</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead> 
+                <tbody>
+                <tr *ngFor="let educationLevel of educationLevelList">
+                    <td>{{ educationLevel.name }}</td>
+                    <td>{{ getformattedDate(educationLevel.createTime.timestamp) }}</td>
+                    <td>{{ getformattedDate(educationLevel.updateTime.timestamp) }}</td>
+                    <td>
+                        <a [routerLink]="['/admin/level-education/update', educationLevel.id, base64Encode(educationLevel.name)]">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <button id="specialityButtonDelete" (click)="delete([educationLevel.id])" class="btn-link" style="color: #ff9c00;">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12" [hidden]="loading">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a [routerLink]="['/admin/level-education/index', pagePrev]" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let p of pages" [ngClass]="{'active': (p + 1 == page)}">
+                        <a [routerLink]="['/admin/level-education/index', p + 1]"> {{ p + 1 }} </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/level-education/index', pageNext]" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

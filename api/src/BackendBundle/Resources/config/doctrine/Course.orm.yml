@@ -1,0 +1,149 @@
+BackendBundle\Entity\Course:
+    type: entity
+    table: course
+    indexes:
+        teacher_function_id:
+            columns:
+                - teacher_function_id
+        speciality_id:
+            columns:
+                - speciality_id
+        education_level_id:
+            columns:
+                - education_level_id
+        skill_century_id:
+            columns:
+                - skill_century_id
+        course_ibfk_1:
+            columns:
+                - dimension_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        link:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        image:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+        typeSuggestion:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: type_suggestion
+        areaCenturyIds:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: area_century_ids
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+        status:
+            type: boolean
+            nullable: false
+            options:
+                    default: true
+            column: status
+        deleteTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: delete_time    
+        state:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: state 
+    manyToOne:
+        dimension:
+            targetEntity: Dimension
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dimension_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        educationLevel:
+            targetEntity: EducationLevel
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                education_level_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        skillCentury:
+            targetEntity: SkillCentury
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                skill_century_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        speciality:
+            targetEntity: Speciality
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                speciality_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        teacherFunction:
+            targetEntity: TeacherFunction
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                teacher_function_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

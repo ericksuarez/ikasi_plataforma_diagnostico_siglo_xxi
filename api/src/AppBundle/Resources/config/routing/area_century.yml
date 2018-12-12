@@ -1,0 +1,24 @@
+area_century_new:
+  path: /new
+  defaults: { _controller: "AppBundle:AreaCentury:new" }
+  methods: POST
+
+area_century_edit:
+  path: /edit/{id}
+  defaults: { _controller: "AppBundle:AreaCentury:edit", id:null }
+  methods: POST
+  
+area_century_list:
+    path: /list/{id}
+    defaults: { _controller: "AppBundle:AreaCentury:list", id:null }
+    methods: GET
+    
+area_century_detail:
+    path: /detail/{id}
+    defaults: { _controller: "AppBundle:AreaCentury:detail", id:null }
+    methods: GET
+    
+area_century_deactivate:
+    path: /deactivate/{id}
+    defaults: { _controller: "AppBundle:AreaCentury:deactivate", id:null }
+    methods: POST

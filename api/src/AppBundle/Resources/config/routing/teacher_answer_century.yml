@@ -1,0 +1,24 @@
+teacher_answer_century_new:
+  path: /saveAnswer
+  defaults: { _controller: "AppBundle:TeacherAnswerCentury:saveAnswer" }
+  methods: POST
+
+teacher_answer_century_results:
+  path: /getResult/{userId}
+  defaults: { _controller: "AppBundle:TeacherAnswerCentury:getResults", userId = null }
+  methods: GET
+
+teacher_answer_century_save_image:
+  path: /saveImage
+  defaults: { _controller: "AppBundle:TeacherAnswerCentury:saveImage" }
+  methods: POST
+
+teacher_answer_century_export_result:
+  path: /export-result/{teacherId}
+  defaults: { _controller: "AppBundle:TeacherAnswerCentury:exportResult", teacherId:null }
+  methods: GET
+
+teacher_answer_century_export_result_to_excel:
+  path: /export-result-to-excel/{teacherId}
+  defaults: { _controller: "AppBundle:TeacherAnswerCentury:exportResultToExcel", teacherId:null }
+  methods: GET

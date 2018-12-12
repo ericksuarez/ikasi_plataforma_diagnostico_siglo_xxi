@@ -1,0 +1,79 @@
+inee_create_dimension:
+  path: /create-dimension
+  defaults: { _controller: "AppBundle:Inee:createDimension" }
+  methods: POST
+
+inee_get_dimension:
+  path: /get-dimension/{id}
+  defaults: { _controller: "AppBundle:Inee:getDimension", id:null }
+  methods: GET
+
+inee_create_parameter:
+  path: /create-parameter/{id}
+  defaults: { _controller: "AppBundle:Inee:createParameter", id:null }
+  methods: POST
+
+inee_get_parameter:
+  path: /get-parameter/{id}
+  defaults: { _controller: "AppBundle:Inee:getParameter", id:null }
+  methods: GET
+
+inee_create_indicator:
+  path: /create-indicator/{id}
+  defaults: { _controller: "AppBundle:Inee:createIndicator", id:null }
+  methods: POST
+
+inee_filter_dimension:
+  path: /filter-dimension/{educationLevelId}/{teacherFunctionId}
+  defaults: { _controller: "AppBundle:Inee:filterDimension", educationLevelId:null, teacherFunctionId:null }
+  methods: GET
+
+inee_import:
+  path: /import
+  defaults: { _controller: "AppBundle:Inee:import" }
+  methods: POST
+
+inee_list_dimension:
+  path: /list-dimension/{educationLevelId}/{teacherFunctionId}
+  defaults: { _controller: "AppBundle:Inee:listDimension", educationLevelId:null, teacherFunctionId:null }
+  methods: GET
+
+inee_list_parameter:
+  path: /list-parameter/{dimensionId}
+  defaults: { _controller: "AppBundle:Inee:listParameter", dimensionId:null }
+  methods: GET
+
+inee_list_indicator:
+  path: /list-indicator/{parameterId}
+  defaults: { _controller: "AppBundle:Inee:listIndicator", indicatorId:null }
+  methods: GET
+ 
+inee_delete_parameter:
+  path: /delete-parameter/{id}
+  defaults: { _controller: "AppBundle:Inee:deleteParameter", id:null }
+  methods: GET
+
+inee_update_parameter:
+  path: /update-parameter/{id}
+  defaults: { _controller: "AppBundle:Inee:updateParameter", id:null }
+  methods: POST
+
+inee_delete_indicator:
+  path: /delete-indicator/{id}
+  defaults: { _controller: "AppBundle:Inee:deleteIndicator", id:null }
+  methods: GET
+
+inee_update_indicator:
+  path: /update-indicator/{id}
+  defaults: { _controller: "AppBundle:Inee:updateIndicator", id:null }
+  methods: POST
+
+inee_delete_dimension:
+  path: /delete-dimension/{id}
+  defaults: { _controller: "AppBundle:Inee:deleteDimension", id:null }
+  methods: GET
+  
+inee_graph_dashboard:
+  path: /getGraphDashboard/{id}
+  defaults: { _controller: "AppBundle:Inee:deleteDimension", id:null }
+  methods: GET

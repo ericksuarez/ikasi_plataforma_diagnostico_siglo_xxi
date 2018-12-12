@@ -1,0 +1,38 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Especialidades</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/speciality/index'">Especialidades</a></li>
+            <li class="active">Nuevo</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="heading">Formulario</h4>
+            <form #specialityForm="ngForm" (ngSubmit)="onSubmit(); specialityForm.reset();">
+                <div class="form-group">
+                    <input [(ngModel)]="model.name" id="name" type="text" class="form-control" name="name" #name="ngModel" required>
+                    <label for="name">Nombre</label>
+                    <p [hidden]="name.valid || name.pristine" class="text-danger">
+                        El nombre es obligatorio
+                    </p>
+                </div>
+                <button id="specialityFormButton" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" [disabled]="!specialityForm.form.valid">Guardar</button>
+                <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()"><i class="fa fa-reply-all" aria-hidden="true"></i> Regresar</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="heading">Listado</h4>
+            <div class="alert alert-warning" [hidden]="specialities.length > 0">
+                No hay nuevos elementos
+            </div>
+            <ol class="list-default">
+                <li *ngFor="let speciality of specialities">{{ speciality.name }}</li>
+            </ol>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

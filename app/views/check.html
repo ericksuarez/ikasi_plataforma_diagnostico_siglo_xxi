@@ -1,0 +1,44 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Verificación de CURP</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/index']">Home</a></li>
+            <li class="active">Verificación de CURP</li>
+        </ul>
+    </div>
+</div>
+
+<div class="bgcolor3 pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="widget search-widget">
+                    <form #checkForm="ngForm" (ngSubmit)="onSubmit();">
+                        <h5 class="heading">Comencemos</h5>
+                        <span>Introduce tu CURP para verificar tus datos</span>
+                        <div class="form-group">
+                            <input id="curp" type="text" class="form-control" name="curp" [(ngModel)]="model.curp"
+                                   #curp="ngModel" required autocomplete="off" minlength="18" maxlength="18">
+                            <p [hidden]="curp.valid || curp.pristine" class="text-danger">
+                                La CURP debe contener 18 caracteres
+                            </p>
+                        </div>
+                        <button id="recoveryButton" data-loading-text="Verificando..." type="submit" name="submit"
+                                [disabled]="!checkForm.form.valid" class="btn btn-primary btn-sm pull-right">
+                            Verificar
+                        </button>
+                    </form>
+                    <div class="row" *ngIf="showError">
+                        <div class="col-sm-12 mt-20 text-center">
+                            <div class="alert alert-danger">
+                                <p>{{ message }}</p>
+                                <a [routerLink]="['/register']" *ngIf="exists" class="btn btn-primary btn-sm">Continuar registro <i
+                                        class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

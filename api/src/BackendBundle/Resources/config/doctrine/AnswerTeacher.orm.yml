@@ -1,0 +1,67 @@
+BackendBundle\Entity\AnswerTeacher:
+    type: entity
+    table: answer_teacher
+    indexes:
+        evaluation_teacher_id:
+            columns:
+                - evaluation_teacher_id
+        question_id:
+            columns:
+                - question_id
+        answer_id:
+            columns:
+                - answer_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    manyToOne:
+        evaluationTeacher:
+            targetEntity: EvaluationTeacher
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                evaluation_teacher_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        question:
+            targetEntity: Question
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                question_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        answer:
+            targetEntity: Answer
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                answer_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

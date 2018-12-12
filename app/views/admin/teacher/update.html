@@ -1,0 +1,52 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Profesores</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/admin/dashboard']">Home</a></li>
+            <li><a [routerLink]="['/admin/teacher/index']">Profesores</a></li>
+            <li><a [routerLink]="['/admin/teacher/profile', teacherId]">{{ oldEmail }}</a></li>
+            <li class="active">Actualizar</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form id="updateTeacherForm" #updateTeacherForm="ngForm" (ngSubmit)="onSubmit();">
+                <div class="form-group">
+                    <input id="email" type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required autocomplete="off">
+                    <label for="email">Correo electrónico</label>
+                    <p [hidden]="email.valid || email.pristine" class="text-danger">
+                        El correo electrónico es obligatorio
+                    </p>
+                </div>
+                <div class="form-group">
+                    <select name="status" id="status" class="form-control"
+                            [(ngModel)]="model.status" #status="ngModel" required>
+                        <option value="">Seleccionar</option>
+                        <option value="1">Desactivado</option>
+                        <option value="2">Activado</option>
+                    </select>
+                    <label for="status">Estatus</label>
+                    <p [hidden]="status.valid || status.pristine" class="text-danger">
+                        La status es obligatoria
+                    </p>
+                </div>
+                <div class="alert alert-info">
+                    Si no desea cambiar la contraseña deje el siguiente campo vacio
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control" name="password"
+                           [(ngModel)]="model.password" #password="ngModel" minlength="6" maxlength="15">
+                    <label for="password">Contraseña</label>
+                    <p [hidden]="password.valid || password.pristine" class="text-danger">
+                        La longitud de la contraseña debe ser por lo menos de 6 letras y/o números
+                    </p>
+                </div>
+                <button id="updateTeacherButton" data-loading-text="Actualizando..." type="submit" name="submit" [disabled]="!updateTeacherForm.form.valid" class="btn btn-primary">Actualizar</button>
+            </form>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

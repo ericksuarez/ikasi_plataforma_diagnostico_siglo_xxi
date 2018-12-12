@@ -1,0 +1,121 @@
+BackendBundle\Entity\EvaluationInee:
+    type: entity
+    table: evaluation_inee
+    indexes:
+        evaluation_inee_ibfk_1:
+            columns:
+                - dimension_id
+        evaluation_inee_ibfk_2:
+            columns:
+                - parameter_id
+        evaluation_inee_ibfk_3:
+            columns:
+                - indicator_id
+        evaluation_inee_ibfk_5:
+            columns:
+                - education_level_id
+        evaluation_inee_ibfk_6:
+            columns:
+                - teacher_function_id
+        evaluation_inee_ibfk_4:
+            columns:
+                - correct_answer
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        reagentBase:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: reagent_base
+        argumentation:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        reference:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        dimension:
+            targetEntity: Dimension
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dimension_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        parameter:
+            targetEntity: Parameter
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                parameter_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        indicator:
+            targetEntity: Indicator
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                indicator_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        correctAnswer:
+            targetEntity: AnswerInee
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                correct_answer:
+                    referencedColumnName: id
+            orphanRemoval: false
+        educationLevel:
+            targetEntity: EducationLevel
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                education_level_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        teacherFunction:
+            targetEntity: TeacherFunction
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                teacher_function_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

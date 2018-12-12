@@ -1,0 +1,49 @@
+user_register:
+  path: /register
+  defaults: { _controller: "AppBundle:User:register" }
+  methods:  POST
+
+user_activate:
+  path: /activate
+  defaults: { _controller: "AppBundle:User:activate" }
+  methods: POST
+
+user_password_recovery:
+  path: /password-recovery
+  defaults: { _controller: "AppBundle:User:passwordRecovery" }
+  methods: POST
+
+user_change_password_token:
+  path: /change-password-token
+  defaults: { _controller: "AppBundle:User:changePasswordToken" }
+  methods: POST
+
+user_change_password:
+  path: /change-password
+  defaults: { _controller: "AppBundle:User:changePassword" }
+  methods: POST
+
+user_change_email:
+  path: /change-email
+  defaults: { _controller: "AppBundle:User:changeEmail" }
+  methods: POST
+
+user_update_profile:
+  path: /update-profile
+  defaults: { _controller: "AppBundle:User:updateProfile" }
+  methods: POST
+
+user_check_curp:
+  path: /check-curp
+  defaults: { _controller: "AppBundle:User:checkCurp" }
+  methods: POST
+  
+user_change_home:
+  path: /change-home
+  defaults: { _controller: "AppBundle:User:changeHome" }
+  methods: POST
+  
+user_get_home:
+  path: /get-home/{id}
+  defaults: { _controller: "AppBundle:User:getHome", id:null }
+  methods: GET

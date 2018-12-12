@@ -1,0 +1,4 @@
+contact_send:
+  path: /send
+  defaults: { _controller: "AppBundle:Contact:send" }
+  methods: POST

@@ -1,0 +1,108 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Perfil</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li class="active">Perfil</li>
+        </ul>
+    </div>
+</div>
+
+<div class="pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h3 class="heading">Actualización del <span class="color2">perfil</span></h3>
+                <ul class="nav nav-pills nav-stacked pull-left" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#p1body1" aria-controls="p1body1" role="tab" data-toggle="tab"><i
+                                class="fa fa-lock fa-fw"></i> Contraseña</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#p1body2" aria-controls="p1body2" role="tab" data-toggle="tab"><i
+                                class="fa fa-envelope fa-fw"></i> Email</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- Tab One -->
+                    <div role="tabpanel" class="tab-pane fade in active" id="p1body1">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <form id="changePassword" #changePassword="ngForm" (ngSubmit)="submitPassword()">
+                                    <h5 class="no-uppercase">Por seguridad tienes que ingresar tu contraseña actual</h5>
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" id="oldPassword" name="oldPassword"
+                                               [(ngModel)]="modelPassword.oldPassword" #oldPassword="ngModel" required>
+                                        <label for="oldPassword">Contraseña anterior</label>
+                                        <p [hidden]="oldPassword.valid || oldPassword.pristine" class="text-danger">
+                                            Debes proporcionar tu contraseña anterior
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" id="newPassword" name="newPassword"
+                                               [(ngModel)]="modelPassword.newPassword" #newPassword="ngModel"
+                                               minlength="6" maxlength="15" required>
+                                        <label for="newPassword">Contraseña nueva</label>
+                                        <p [hidden]="newPassword.valid || newPassword.pristine" class="text-danger">
+                                            La longitud de la contraseña debe ser por lo menos de 6 letras y/o números
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" id="repeatNewPassword"
+                                               name="repeatNewPassword" [(ngModel)]="modelPassword.repeatNewPassword"
+                                               #repeatNewPassword="ngModel" minlength="6" maxlength="15" required>
+                                        <label for="repeatNewPassword">Repetir contraseña</label>
+                                        <p [hidden]="repeatNewPassword.valid || repeatNewPassword.pristine"
+                                           class="text-danger">
+                                            La longitud de la contraseña debe ser por lo menos de 6 letras y/o números
+                                        </p>
+                                    </div>
+                                    <div *ngIf="dontMatchPassword" class="alert alert-danger">
+                                        Las contraseñas no coinciden
+                                    </div>
+                                    <button id="passwordButton" data-loading-text="Guardando..." type="submit" name="submit"
+                                            class="btn btn-primary" [disabled]="!changePassword.form.valid">Cambiar
+                                        contraseña
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Two -->
+                    <div role="tabpanel" class="tab-pane fade" id="p1body2">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <form id="changeEmail" #changeEmail="ngForm" (ngSubmit)="submitEmail()">
+                                    <h5 class="no-uppercase">Tu correo actual es: <strong>{{profile.email}}</strong></h5>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="modelEmail.email" #email="ngModel" required>
+                                        <label for="email">Correo electrónico nuevo</label>
+                                        <p [hidden]="email.valid || email.pristine" class="text-danger">
+                                            El correo electrónico es obligatorio
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="emailRepeat" name="emailRepeat" [(ngModel)]="modelEmail.emailRepeat" #emailRepeat="ngModel" required>
+                                        <label for="emailRepeat">Repetir correo electrónico</label>
+                                        <p [hidden]="emailRepeat.valid || emailRepeat.pristine" class="text-danger">
+                                            Ingresa nuevamente el correo electrónico
+                                        </p>
+                                    </div>
+                                    <div *ngIf="dontMatchEmail" class="alert alert-danger">
+                                        Los correos no coinciden
+                                    </div>
+                                    <button id="emailButton" data-loading-text="Guardando..." type="submit" name="submit"
+                                            class="btn btn-primary" [disabled]="!changeEmail.form.valid">Cambiar correo
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<simple-notifications [options]="options"></simple-notifications>

@@ -1,0 +1,24 @@
+category_new:
+  path: /new
+  defaults: { _controller: "AppBundle:Category:new" }
+  methods: POST
+
+category_edit:
+  path: /edit/{id}
+  defaults: { _controller: "AppBundle:Category:edit", id:null }
+  methods: POST
+  
+category_deactivate:
+  path: /deactivate/{id}
+  defaults: { _controller: "AppBundle:Category:deactivate", id:null}
+  methods: POST
+  
+category_list:
+  path: /list
+  defaults: { _controller: "AppBundle:Category:list", id:null}
+  methods: GET
+
+category_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:Category:delete", id:null}
+  methods: GET

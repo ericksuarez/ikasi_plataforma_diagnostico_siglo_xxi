@@ -1,0 +1,54 @@
+BackendBundle\Entity\EvaluationInne:
+    type: entity
+    table: evaluation_inne
+    indexes:
+        evaluation_id:
+            columns:
+                - evaluation_id
+        skill_inne_id:
+            columns:
+                - skill_inne_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        createTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    manyToOne:
+        evaluation:
+            targetEntity: Evaluation
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                evaluation_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        skillInne:
+            targetEntity: SkillInne
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                skill_inne_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

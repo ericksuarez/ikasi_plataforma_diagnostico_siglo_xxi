@@ -1,0 +1,29 @@
+evaluation_inee_create:
+  path: /create
+  defaults: { _controller: "AppBundle:EvaluationInee:create" }
+  methods: POST
+
+evaluation_inee_import:
+  path: /import
+  defaults: { _controller: "AppBundle:EvaluationInee:import" }
+  methods: POST
+
+evaluation_inee_filter_evaluation:
+  path: /filter-evaluation/{educationLevelId}/{teacherFunctionId}
+  defaults: { _controller: "AppBundle:EvaluationInee:filterEvaluation", educationLevelId:null, teacherFunctionId:null }
+  methods: GET
+
+evaluation_inee_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:EvaluationInee:delete", id:null }
+  methods: POST
+
+evaluation_inee_view:
+  path: /view/{id}
+  defaults: { _controller: "AppBundle:EvaluationInee:view", id:null }
+  methods: GET
+
+evaluation_inee_update:
+  path: /update/{id}
+  defaults: { _controller: "AppBundle:EvaluationInee:update", id:null }
+  methods: POST

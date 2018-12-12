@@ -1,0 +1,107 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Evaluación diagnóstica</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/inee/evaluation/index'">Evaluación diagnóstica</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-6">
+            <a [routerLink]="'/admin/inee/evaluation/import'" class="btn btn-primary pull-right">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Importar evaluación
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <a [routerLink]="'/admin/inee/evaluation/create'" class="btn btn-primary pull-right">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Nueva evaluación
+            </a>
+        </div>
+    </div>
+    <hr>
+    <form #evaluationFilterForm="ngForm" (ngSubmit)="onSubmit();">
+        <div class="row">
+            <p class="text-info"> Para buscar una evaluación selecciona un nivel y una función </p>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <select name="education_level" id="education_level" class="form-control"
+                            [(ngModel)]="model.education_level" #education_level="ngModel" required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let el of education_level_list" [value]="el.id">
+                            {{el.name}}
+                        </option>
+                    </select>
+                    <label for="education_level">Nivel</label>
+                    <p [hidden]="education_level.valid || education_level.pristine"
+                       class="text-danger">
+                        El nivel es obligatorio
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <select name="teacher_function" id="teacher_function" class="form-control"
+                            [(ngModel)]="model.teacher_function" #teacher_function="ngModel" required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let tf of teacher_function_list" [value]="tf.id">
+                            {{tf.name}}
+                        </option>
+                    </select>
+                    <label for="teacher_function">Función</label>
+                    <p [hidden]="teacher_function.valid || teacher_function.pristine"
+                       class="text-danger">
+                        La función es obligatoria
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button id="evaluationButton" data-loading-text="Consultando..." name="submit"
+                        class="btn btn-default btn-block mt-10" [disabled]="!evaluationFilterForm.form.valid">
+                    <i class="fa fa-search" aria-hidden="true"></i> Consultar
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Base del reactivo</th>
+                    <th>Argumentación</th>
+                    <th>Respuestas</th>
+                    <th>Respuesta correcta</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let question of questions" id="question-{{question.id}}">
+                    <td [innerHTML]="question.reagentBase"></td>
+                    <td [innerHTML]="question.argumentation"></td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let answer of question.answers">{{answer.title}}</li>
+                        </ul>
+                    </td>
+                    <td>{{question.correctAnswer}}</td>
+                    <td>
+                        <a href="javascript:void(0);" data-toggle="tooltip" title="Eliminar" (click)="deleteQ(question.id)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                        <a [routerLink]="['/admin/inee/evaluation/update', question.id]" data-toggle="tooltip" title="Actualizar">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

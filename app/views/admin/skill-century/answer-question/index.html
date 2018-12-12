@@ -1,0 +1,54 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Areas</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Respuestas a las preguntas</a></li>
+            <li class="active">Areas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid bgcolor3 pt-100 pb-100">
+    <div class="row">
+        <div class="col-sm-12 mb-20">
+            <a [routerLink]="'/admin/skill-century/create-question-century'" class="btn btn-primary pull-right">
+                <i class="fa fa-plus" aria-hidden="true"></i> Agregar
+            </a>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de creación</th>
+                    <th>Última actualización</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngIf="answers">
+                    <th class="panel-title" colspan="4">{{pregunta}}</th>
+                </tr>
+                <tr *ngFor="let answer of answers">
+                    <td>{{answer.name}}</td>
+                    <td>{{ getformattedDate(answer.createTime.timestamp) }}</td>
+                    <td>{{ getformattedDate(answer.updateTime.timestamp) }}</td>
+                    <td>
+                        <i class="fa fa-edit"></i>
+                    </td>
+                </tr>
+                <tr *ngIf="!answers">
+                    <td colspan="4" class="alert alert-warning">
+                        No hay respuestas
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

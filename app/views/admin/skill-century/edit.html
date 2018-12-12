@@ -1,0 +1,31 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Editar habilidad</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/index'">Habilidades Siglo XXI</a></li>
+            <li class="active">editar</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="heading">Formulario</h4>
+            <form #skillEditForm="ngForm" (ngSubmit)="onSubmit();">
+                <div class="form-group">
+                    <input [(ngModel)]="skill.name" id="name" type="text" class="form-control" name="name" #name="ngModel" required>
+                    <label for="name">Nombre</label>
+                    <p [hidden]="name.valid || name.pristine" class="text-danger">
+                        El nombre es obligatorio
+                    </p>
+                </div>
+                <button id="skillFormButton" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" [disabled]="!skillEditForm.form.valid">Guardar</button>
+                <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()">
+                    <i class="fa fa-reply-all" aria-hidden="true"></i> Regresar
+                </button>
+            </form>
+        </div>        
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

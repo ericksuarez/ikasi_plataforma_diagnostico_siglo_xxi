@@ -1,0 +1,28 @@
+answer_category_create:
+  path: /create
+  defaults: { _controller: "AppBundle:AnswerCategory:create"}
+  methods: POST
+
+anwswer_category_edit:
+    path: /edit/{id}
+    defaults: { _controller: "AppBundle:AnswerCategory:edit", id:null}
+    methods: POST
+
+answer_category_detail:
+    path: /detail/{id}
+    defaults: { _controller: "AppBundle:AnswerCategory:detail", id:null}
+    methods: GET
+    
+answer_category_deactivate:
+    path: /deactivate/{id}
+    defaults: { _controller: "AppBundle:AnswerCategory:deactivate", id:null}
+    methods: POST
+    
+answer_category_list:
+    path: /list/{id}
+    defaults: { _controller: "AppBundle:AnswerCategory:list", id:null}
+    methods: GET
+answer_category_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:AnswerCategory:delete", id:null }
+  methods: GET

@@ -1,0 +1,24 @@
+education_level_list:
+  path: /list
+  defaults: { _controller: "AppBundle:EducationLevel:list" }
+  methods: GET
+
+education_level_all:
+  path: /all
+  defaults: { _controller: "AppBundle:EducationLevel:all" }
+  methods: GET
+
+education_level_create:
+  path: /create
+  defaults: { _controller: "AppBundle:EducationLevel:create" }
+  methods: POST
+
+education_level_update:
+  path: /update/{id}
+  defaults: { _controller: "AppBundle:EducationLevel:update", id:null }
+  methods: POST
+  
+education_level_delete:
+  path: /delete/{id}
+  defaults: { _controller: "AppBundle:EducationLevel:delete", id:null }
+  methods: GET

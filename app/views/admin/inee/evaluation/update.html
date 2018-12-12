@@ -1,0 +1,165 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Evaluación diagnóstica</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/inee/evaluation/index'">Evaluación diagnóstica</a></li>
+            <li class="active">Actualizar</li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-100 mb-100">
+    <form #questionForm="ngForm" (ngSubmit)="onSubmit()">
+        <h6>Selecciona la configuración</h6>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <select name="education_level" id="education_level" class="form-control"
+                            [(ngModel)]="model.education_level" #education_level="ngModel" (change)="resetForm()"
+                            required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let el of education_level_list" [value]="el.id">
+                            {{el.name}}
+                        </option>
+                    </select>
+                    <label for="education_level">Nivel</label>
+                    <p [hidden]="education_level.valid || education_level.pristine"
+                       class="text-danger">
+                        El nivel es obligatorio
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <select name="teacher_function" id="teacher_function" class="form-control"
+                            [(ngModel)]="model.teacher_function"
+                            #teacher_function="ngModel" (change)="showDimensions(teacherF.value)" #teacherF required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let tf of teacher_function_list" [value]="tf.id">
+                            {{tf.name}}
+                        </option>
+                    </select>
+                    <label for="teacher_function">Función</label>
+                    <p [hidden]="teacher_function.valid || teacher_function.pristine"
+                       class="text-danger">
+                        La función es obligatoria
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <select name="dimension" id="dimension" class="form-control"
+                            [(ngModel)]="model.dimension"
+                            #dimension="ngModel" (change)="showParameters(dimensionId.value)" #dimensionId required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let dim of dimension_list" [value]="dim.id">
+                            {{dim.name}}
+                        </option>
+                    </select>
+                    <label for="dimension">Dimensión</label>
+                    <p [hidden]="dimension.valid || dimension.pristine"
+                       class="text-danger">
+                        La dimensión es obligatoria
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select name="parameter" id="parameter" class="form-control"
+                            [(ngModel)]="model.parameter" (change)="showIndicators(parameterId.value)" #parameterId
+                            #parameter="ngModel" required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let par of parameter_list" [value]="par.id">
+                            {{par.name}}
+                        </option>
+                    </select>
+                    <label for="parameter">Parámetro</label>
+                    <p [hidden]="parameter.valid || parameter.pristine"
+                       class="text-danger">
+                        El parámetro es obligatoria
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select name="indicator" id="indicator" class="form-control"
+                            [(ngModel)]="model.indicator"
+                            #indicator="ngModel" required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let ind of indicator_list" [value]="ind.id">
+                            {{ind.name}}
+                        </option>
+                    </select>
+                    <label for="parameter">Indicador</label>
+                    <p [hidden]="indicator.valid || indicator.pristine"
+                       class="text-danger">
+                        El parámetro es obligatoria
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <h6>Redacta la pregunta</h6>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div id="validator-dimension-ckeditor" class="custom-ckeditor-invalid"></div>
+                    <ckeditor [(ngModel)]="model.reagent_base" [config]="{entities: false}" (change)="onChange($event)" class="no-valid" debounce="500" name="reagent_base" required="required"></ckeditor>
+                    <label>Base del reactivo</label>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div id="validator-argumentation-ckeditor" class="custom-ckeditor-invalid"></div>
+                    <ckeditor [(ngModel)]="model.argumentation" [config]="{entities: false}" (change)="onChangeArg($event)" class="no-valid" debounce="500" name="argumentation" required="required"></ckeditor>
+                    <label>Argumentación</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h6>Agregar respuestas</h6>
+                <div class="form-group">
+                    <input id="answer" class="form-control" name="answer" [(ngModel)]="model.answer" #answer="ngModel"
+                           autocomplete="off">
+                    <label for="answer">Respuesta</label>
+                </div>
+                <button type="button" class="btn btn-info btn-sm" (click)="addAnswer()" [disabled]="!model.answer">
+                    Agregar respuesta
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <h6>Seleccionar respuesta correcta</h6>
+                <div class="radio" *ngFor="let answer of model.answerCollection">
+                    <div class="row" [hidden]="answer.removed">
+                        <div class="col-sm-10">
+                            <label>
+                                <input type="radio" name="correctAnswer" #correctAnswer="ngModel"
+                                       [(ngModel)]="model.correctAnswer" value="{{answer.title}}">
+                                {{answer.title}}
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" (click)="deleteAnswer(answer)"
+                                    class="btn btn-xs btn-danger pull-right">Eliminar <i class="fa fa-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button id="questionFormButton" type="submit" data-loading-text="Actualizando..." name="submit"
+                        class="btn btn-success" [disabled]="!questionForm.form.valid"> Guardar
+                </button>
+            </div>
+        </div>
+    </form>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

@@ -1,0 +1,127 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Cursos</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/course/index'">Cursos</a></li>
+            <li class="active">index</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <form class="form-inline pull-right">
+            <div class="form-group mx-sm-3 mb-2">
+                <select name="search_course" id="search_course" class="form-control" (change)="statusChangeHandler($event)">
+                    <option value="1">Activos</option>
+                    <option value="0">Inactivos</option>
+                    <option value="-1">Todos</option>
+                </select>
+            </div>
+            <div class="form-group mb-2">
+                <button type="submit" class="btn btn-info mb-2" (click)="goSearch()">
+                    <i class="fa fa-search" aria-hidden="true"></i> Buscar
+                </button>
+            </div>
+            <div class="form-group mb-2">
+                <a class="btn btn-default pull-right" href="javascript:void(0)" (click)="showImport()">
+                    <i aria-hidden="true" class="fa fa-upload"></i>
+                    Importar Cursos
+                </a>
+            </div>
+            <div class="form-group mb-2">
+                <a [routerLink]="'/admin/course/create'" class="btn btn-primary pull-right" style="with:100%">
+                    <i class="fa fa-plus" aria-hidden="true"></i> 
+                    Agregar
+                </a>
+            </div>
+        </form>    
+    </div>
+    <hr>
+    <div class="row" [hidden]="table_list_course">
+        <div class="col-sm-12">
+            <div class="loader" *ngIf="loading">
+                <img src="../assets/images/loading.gif" alt="Cargando ...">
+            </div>
+            <table class="table table-hover" [hidden]="loading">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha de creación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of courses">
+                        <td>{{ course.name }}</td>
+                        <td>{{ getformattedDate(course.createTime.timestamp) }}</td>
+                        <td *ngIf="course.status != false">
+                            <!--<a [routerLink]="['/admin/course/view', course.id]" data-toggle="tooltip" data-placement="bottom" title="Ver detalle">-->
+                            <a [routerLink]="['/admin/course/view', course.id]" title="Ver detalle">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                            <!--<a [routerLink]="['/admin/course/update', course.id]" data-toggle="tooltip" data-placement="bottom" title="Editar curso">-->
+                            <a [routerLink]="['/admin/course/update', course.id]" title="Editar curso">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <button id="specialityButtonDelete" (click)="delete([course.id])" class="btn-link" style="color: #ff9c00;" title="Desactivar curso">
+                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td *ngIf="course.status == false">
+                            <p class="text-danger"><strong>Inactivo desde {{ getformattedDate(course.deleteTime.timestamp) }}</strong></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12" [hidden]="courses.length > 0 || loading">
+            <div class="alert alert-warning">
+                No hay cursos disponibles en este momento
+            </div>
+        </div>
+        <div class="col-sm-12" [hidden]="loading">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a [routerLink]="['/admin/course/index', pagePrev]" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let p of pages" [ngClass]="{'active': (p + 1 == page)}">
+                        <a [routerLink]="['/admin/course/index', p + 1]"> {{ p + 1 }} </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/course/index', pageNext]" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="form-group text-center" [hidden]="input_show_import">
+        <form id="load_csv">
+            <input id="image-course" class="inputfile inputfile-4"
+                   (change)="loadFile($event)" type="file"/>
+            <label for="image-course">
+                <figure>
+                    <i class="fa fa-upload"></i>
+                </figure>
+                <span>Selecciona un archivo…</span>
+            </label>
+            <div class="col-sm-12 text-center" [hidden]="!ready">
+                <p class="text-info" id="title-msj">
+                    <samp>Los cursos se estan cargando...</samp>
+                </p>
+                <div id="status">
+                </div>
+                <button type="button" class="btn btn-success btn-sm" (click)="upload()">
+                    <i class="fa fa-cloud-upload"></i> Aceptar
+                </button>
+            </div>
+        </form>
+    </div>
+    <simple-notifications [options]="options"></simple-notifications>
+</div>

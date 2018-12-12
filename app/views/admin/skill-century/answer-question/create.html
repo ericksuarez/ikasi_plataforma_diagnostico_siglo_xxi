@@ -1,0 +1,51 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Preguntas Por categoría</h1>
+        <ul class="breadcrumb">
+            <li><a [routerLink]="'/admin/dashboard'">Home</a></li>
+            <li><a [routerLink]="'/admin/skill-century/view-question-century'">Cuestionario</a></li>
+            <li class="active">Preguntas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-80 mb-100">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="heading">Formulario</h4>
+            <h5>{{question}}</h5>
+            <form #answerForm="ngForm" (ngSubmit)="onSubmit(); answerForm.reset();">
+                <div class="form-group">
+                    <input [(ngModel)]="model.name" id="name" type="text" class="form-control" name="name" #name="ngModel" required>
+                    <label for="name">Respuesta</label>
+                    <p [hidden]="name.valid || name.pristine" class="text-danger">
+                        La respuesta es obligatoria
+                </p>
+            </div>
+            <div class="col-md-offset-9">&nbsp;</div>
+            <div class="col-sm-12 row">
+                <button *ngIf="!editing" id="skillFormButtonSave" type="submit" data-loading-text="Guardando..." name="submit" class="btn btn-success" [disabled]="!answerForm.form.valid">Guardar</button>
+                <button *ngIf="editing" id="skillFormButtonEdit" type="submit" data-loading-text="Modificando..." name="submit" class="btn btn-success" [disabled]="!answerForm.form.valid">Modificar</button>
+                <button type="button" data-loading-text="Regresar..." name="gotoback" class="btn btn-info" (click)="toGoBack()">
+                    <i class="fa fa-reply-all" aria-hidden="true"></i> Regresar
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6" *ngIf="!editing">
+        <h4 class="heading">Listado</h4>
+        <div class="alert alert-warning" [hidden]="answers.length > 0">
+            No hay nuevos elementos
+        </div>
+        <ol class="list-default" *ngIf="!loading">
+            <div>
+                <li *ngFor="let answer of answers">{{ answer.name }}</li>
+            </div>
+        </ol>
+        <div class="loader" *ngIf="loading">
+            <img src="../assets/images/loading.gif" alt="Cargando ...">
+        </div>
+    </div>
+</div>
+<simple-notifications [options]="options"></simple-notifications>
+</div>
