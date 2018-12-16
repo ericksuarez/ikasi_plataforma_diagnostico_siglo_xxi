@@ -20,8 +20,10 @@ var skill_century_area_service_1 = require("../../services/skill-century-area.se
 var skill_century_teacher_answer_century_service_1 = require("../../services/skill-century-teacher-answer-century.service");
 var DataResultEvaluationXII_1 = require("../../models/DataResultEvaluationXII");
 var auth_service_1 = require("../../services/auth.service");
+var teacher_service_1 = require("../../services/teacher.service");
+var notifications_service_1 = require("angular2-notifications/src/notifications.service");
 var ApplyCenturyEvaluation = (function () {
-    function ApplyCenturyEvaluation(_skillCenturyService, _skillCenturyAreaService, _skillCenturyTeacherAnswerCenturyService, _authService) {
+    function ApplyCenturyEvaluation(_skillCenturyService, _skillCenturyAreaService, _skillCenturyTeacherAnswerCenturyService, _authService, teacherService, _notificationsService) {
         this._skillCenturyService = _skillCenturyService;
         this._skillCenturyAreaService = _skillCenturyAreaService;
         this._skillCenturyTeacherAnswerCenturyService = _skillCenturyTeacherAnswerCenturyService;
@@ -39,6 +41,22 @@ var ApplyCenturyEvaluation = (function () {
         this.radarChartLabels = [];
         this.radarChartData = [];
         this.radarChartType = 'radar';
+		this.teacherService = teacherService
+		this._notificationsService = _notificationsService;
+		this.options = {
+            timeOut: 3000,
+            lastOnBottom: true,
+            clickToClose: true,
+            maxLength: 0,
+            maxStack: 7,
+            showProgressBar: true,
+            pauseOnHover: true,
+            preventDuplicates: false,
+            preventLastDuplicates: 'visible',
+            rtl: false,
+            animate: 'scale',
+            position: ['left', 'bottom']
+        };
     }
     ApplyCenturyEvaluation_1 = ApplyCenturyEvaluation;
     ApplyCenturyEvaluation.prototype.ngOnInit = function () {
@@ -155,16 +173,79 @@ var ApplyCenturyEvaluation = (function () {
                     });
         }
     };
+		/**
+     * Funcion borrado de teacher, evaluaciones siglos xxi y evaluation diagnostica
+     * @param teacherId
+	 * @param opcion valores de opcion 
+	 *	1 => Elimiar al Profesor
+	 *	2 => Elimiar al Evaluación Siglo XXI
+	 *	3 => Elimiar al Evaluación Diagnostica
+     */
+    ApplyCenturyEvaluation.prototype.delete = function (teacherId,opcion) {
+        var _this = this;
+
+        $.confirm({
+            icon: 'fa fa-warning',
+            closeIcon: true,
+            title: '¡Confirmación!',
+            content: '¿Está seguro que desea reiniciar esta evaluation?',
+            type: 'red',
+            typeAnimated: true,
+            autoClose: 'close|8000',
+            buttons: {
+                acptar: {
+                    text: 'Aceptar',
+                    btnClass: 'btn-green',
+                    action: function () {
+						console.log("teacher" + teacherId);
+                        _this.teacherService.delete(teacherId,opcion).subscribe(function (response) {
+                            if (response.status === 200) {
+                                _this._notificationsService.success(response.title, response.message);
+                                _this.loading = true;
+
+                                _this.teacherService.findAll(_this.page).subscribe(function (response) {
+                                    _this.teachersList = response.data;
+                                    _this.pages = [];
+                                    //noinspection TypeScriptUnresolvedVariable
+                                    for (var i = 0; i < response.total_pages; i++) {
+                                        _this.pages.push(i);
+                                    }
+                                    _this.pagePrev = (_this.page > 1) ? (parseInt(_this.page) - 1) : _this.page;
+                                    //noinspection TypeScriptUnresolvedVariable
+                                    _this.pageNext = (_this.page < response.total_pages) ? (parseInt(_this.page) + 1) : _this.page;
+                                    _this.loading = false;
+                                }, function (error) {
+                                    _this._notificationsService.error("Error!!!", "No se logro cargar el listado");
+                                });
+                                jQuery("#main-navigation").find(">ul>li.active").removeClass("active");
+                                jQuery("#menu-course").addClass("active");
+                            } else {
+                                _this._notificationsService.error(response.title, response.message);
+                            }
+                        });
+                    }
+                },
+                close: {
+                    text: 'Cancelar',
+                    btnClass: 'btn-red',
+                    action: function () {
+                    }
+                }
+            }
+        });
+    };
     ApplyCenturyEvaluation = ApplyCenturyEvaluation_1 = __decorate([
         core_1.Component({
             templateUrl: 'app/views/apply-evaluation/index.html',
-            providers: [skill_century_service_1.SkillCenturyService, skill_century_area_service_1.SkillCenturyAreaService, skill_century_teacher_answer_century_service_1.SkillCenturyTeacherAnswerCenturyService],
+            providers: [skill_century_service_1.SkillCenturyService, skill_century_area_service_1.SkillCenturyAreaService, skill_century_teacher_answer_century_service_1.SkillCenturyTeacherAnswerCenturyService, teacher_service_1.TeacherService, notifications_service_1.NotificationsService],
             selector: 'radar-chart-demo',
         }),
         __metadata("design:paramtypes", [skill_century_service_1.SkillCenturyService,
             skill_century_area_service_1.SkillCenturyAreaService,
             skill_century_teacher_answer_century_service_1.SkillCenturyTeacherAnswerCenturyService,
-            auth_service_1.AuthService])
+            auth_service_1.AuthService,
+			teacher_service_1.TeacherService, 
+			notifications_service_1.NotificationsService])
     ], ApplyCenturyEvaluation);
     return ApplyCenturyEvaluation;
     var ApplyCenturyEvaluation_1;

@@ -62,8 +62,9 @@
             </div>
         </div>
         <div class="col-lg-8 col-lg-offset-2" id="results" *ngIf="showGraph">
-            <h3>Resultados</h3>
+            <h4>Resultados</h4>
             <hr>
+			<button class="btn-link pull-right" style="color: #ff9c00" (click)="delete([userId],2)">Reiniciar Evaluación Siglo XXI</button>
             <button class="btn btn-primary" (click)="exportResult()">Exportar</button>
             <div class="col-lg-12">
                 <canvas

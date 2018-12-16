@@ -47,8 +47,10 @@
 
     <div class="row" *ngIf="showGraphic">
         <div class="col-sm-8 col-sm-offset-2">
-            <button class="btn-link" style="color: #ff9c00" (click)="resetEvaluationInee()">Reiniciar Evaluación Diagnóstica</button>
+			<h4>Resultados</h4>
             <hr>
+            <button class="btn-link pull-right" style="color: #ff9c00" (click)="resetEvaluationInee()">Reiniciar Evaluación Diagnóstica</button>
+			<button class="btn btn-primary" (click)="exportResult()">Exportar</button>
             <canvas id="graphInee"
                     baseChart
                     [datasets]="radarChartData"

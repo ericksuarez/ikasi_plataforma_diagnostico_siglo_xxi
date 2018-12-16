@@ -605,3 +605,5 @@
 [12-Dec-2018 12:33:40 America/Mexico_City] PHP Fatal error:  Call to undefined method AppBundle\Services\PDF::MultiCellBltArray() in /home/dsxxi/public_html/desarrollo/api/src/AppBundle/Controller/QuestionnaireIneeController.php on line 487
 [12-Dec-2018 12:34:59 America/Mexico_City] PHP Fatal error:  Cannot access protected property AppBundle\Services\PDF::$x in /home/dsxxi/public_html/desarrollo/api/src/AppBundle/Controller/QuestionnaireIneeController.php on line 487
 [12-Dec-2018 12:37:34 America/Mexico_City] PHP Fatal error:  Cannot access protected property AppBundle\Services\PDF::$x in /home/dsxxi/public_html/desarrollo/api/src/AppBundle/Controller/QuestionnaireIneeController.php on line 487
+[13-Dec-2018 08:58:55 America/Mexico_City] PHP Fatal error:  Call to a member function getId() on null in /home/dsxxi/public_html/desarrollo/api/src/AppBundle/Controller/QuestionCenturyController.php on line 129
+[13-Dec-2018 09:00:51 America/Mexico_City] PHP Fatal error:  Call to a member function getId() on null in /home/dsxxi/public_html/desarrollo/api/src/AppBundle/Controller/QuestionCenturyController.php on line 129

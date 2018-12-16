@@ -17,8 +17,9 @@ Object.defineProperty(exports, "__esModule", {value: true});
 var core_1 = require("@angular/core");
 var evaluation_inee_service_1 = require("../../services/evaluation-inee.service");
 var notifications_service_1 = require("angular2-notifications/src/notifications.service");
+var skill_century_teacher_answer_century_service_1 = require("../../services/skill-century-teacher-answer-century.service");
 var EvaluationTeacherComponent = (function () {
-    function EvaluationTeacherComponent(evaluationIneeService, _notificationsService) {
+    function EvaluationTeacherComponent(evaluationIneeService, _notificationsService, _skillCenturyTeacherAnswerCenturyService) {
         this.evaluationIneeService = evaluationIneeService;
         this.loading = false;
         this.showGraphic = false;
@@ -39,6 +40,8 @@ var EvaluationTeacherComponent = (function () {
             position: ['left', 'bottom']
         };
         this.teacher_id;
+		this._skillCenturyTeacherAnswerCenturyService = _skillCenturyTeacherAnswerCenturyService;
+		this.directoryUploadsEvaluationXXI = "evaluation_xxi_teacher_";
     }
     EvaluationTeacherComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -117,13 +120,29 @@ var EvaluationTeacherComponent = (function () {
             }
         });
     };
+	/**
+     * Export results of evaluation inee to PDF
+     * @param teacherId
+     */
+    EvaluationTeacherComponent.prototype.exportResult = function () {
+        var _this = this;
+        this.evaluationIneeService.exportToPDF(_this.teacher_id).subscribe(function (response) {
+            if (response.status == 'success') {
+                window.open(_this._skillCenturyTeacherAnswerCenturyService.apiEndPoint + _this.directoryUploadsEvaluationXXI
+                        + response.userId + "/result_inee.pdf", '_blank');
+            }
+            _this._notificationsService.success("Exito", "Archvio descargado.");
+        }, function (error) {
+            _this._notificationsService.error("Error", "Ocurrio un error al tratar de reiniciar la evaluación.");
+        });
+    };
     EvaluationTeacherComponent = __decorate([
         core_1.Component({
             selector: 'evaluation-inne',
             templateUrl: 'app/views/inee/evaluation-teacher.html',
-            providers: [evaluation_inee_service_1.EvaluationIneeService, notifications_service_1.NotificationsService]
+            providers: [evaluation_inee_service_1.EvaluationIneeService, notifications_service_1.NotificationsService, skill_century_teacher_answer_century_service_1.SkillCenturyTeacherAnswerCenturyService]
         }),
-        __metadata("design:paramtypes", [evaluation_inee_service_1.EvaluationIneeService, notifications_service_1.NotificationsService])
+        __metadata("design:paramtypes", [evaluation_inee_service_1.EvaluationIneeService, notifications_service_1.NotificationsService, skill_century_teacher_answer_century_service_1.SkillCenturyTeacherAnswerCenturyService])
     ], EvaluationTeacherComponent);
     return EvaluationTeacherComponent;
 }());
